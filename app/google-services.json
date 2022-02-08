@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "644319282511",
+    "firebase_url": "https://book-meme-app-default-rtdb.firebaseio.com",
+    "project_id": "book-meme-app",
+    "storage_bucket": "book-meme-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644319282511:android:cb3e27a3d99c9900e2713a",
+        "android_client_info": {
+          "package_name": "com.example.bookappkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644319282511-e3p549dkt5334ddmvu1j0sq7uq5pn0hu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQkpCUzPmtW4bKa4-8RBc8S__xf1kjgl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644319282511-e3p549dkt5334ddmvu1j0sq7uq5pn0hu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
