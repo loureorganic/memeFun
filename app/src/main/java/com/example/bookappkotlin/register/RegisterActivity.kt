@@ -18,6 +18,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
+
+    //dependency
     private lateinit var userService: UserRegisterServices
     private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setup() {
+        //dependency
         val preferences = getPreferences(Context.MODE_PRIVATE)
         val firebase = FirebaseAuth.getInstance()
         val repository = UserRegisterRepository(firebase, preferences)

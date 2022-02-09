@@ -17,7 +17,7 @@ interface HomeRepository {
 
 class UserHomeRepository() : HomeRepository {
 
-    private val BASE_URL = "https://api.imgflip.com"
+    val BASE_URL = "https://api.imgflip.com"
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
         val gson = GsonBuilder()

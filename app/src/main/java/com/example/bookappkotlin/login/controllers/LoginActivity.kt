@@ -16,12 +16,11 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
-    //viewbinding
-
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var progressDialog: ProgressDialog
 
+    //dependency
     private lateinit var userService: UserLoginServices
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +38,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        //handleClick, begin login
-
         binding.loginBtn.setOnClickListener{
             validateData()
         }
@@ -48,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     //has the responsibility to start all the application
+    //dependency
     private fun setup() {
         val preferences = getPreferences(MODE_PRIVATE)
         val firebase = FirebaseAuth.getInstance()
@@ -68,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
         else if(user.password.isEmpty()){
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
         }else{
+            //dependency
             userService.loginUser(user, this::redirectDashBoardUser)
         }
     }

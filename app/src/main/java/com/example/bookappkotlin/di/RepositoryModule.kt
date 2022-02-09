@@ -1,10 +1,20 @@
 package com.example.bookappkotlin.di
 
-import com.example.bookappkotlin.dashboard.repository.DashboardRepository
+import com.example.bookappkotlin.home.repository.HomeRepository
+import com.example.bookappkotlin.home.repository.UserHomeRepository
+import com.example.bookappkotlin.home.services.HomeServices
+import com.example.bookappkotlin.home.services.UserHomeServices
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single {
-        DashboardRepository(get())
+
+    factory<HomeRepository>{
+        UserHomeRepository()
+    }
+
+    factory<HomeServices>{
+        UserHomeServices(
+            repository = get()
+        )
     }
 }

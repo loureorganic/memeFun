@@ -13,7 +13,7 @@ import com.example.bookappkotlin.splash.services.SplashServices
 import com.google.firebase.auth.FirebaseAuth
 
 class SplashActivity : AppCompatActivity() {
-
+    //dependency
     private lateinit var splashService: SplashServices
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
+        //dependency
         setup()
 
         Handler().postDelayed(Runnable {
@@ -29,6 +30,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setup() {
+        //dependency
         val preferences = getPreferences(Context.MODE_PRIVATE)
         val firebase = FirebaseAuth.getInstance()
         val repository = SplashRepository(firebase, preferences)
@@ -40,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         } else if (accepted) {
-            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
         }
     }

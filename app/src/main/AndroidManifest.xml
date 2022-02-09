@@ -11,6 +11,7 @@
         android:icon="@drawable/original"
         android:label="@string/app_name"
         android:roundIcon="@drawable/original"
+        android:name=".app.App"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar"
@@ -29,7 +30,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
