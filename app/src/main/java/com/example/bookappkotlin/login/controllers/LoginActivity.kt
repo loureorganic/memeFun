@@ -10,9 +10,14 @@ import com.example.bookappkotlin.home.HomeActivity
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
 import com.example.bookappkotlin.login.model.User
 import com.example.bookappkotlin.login.repository.UserLoginRepository
+import com.example.bookappkotlin.login.services.LoginService
 import com.example.bookappkotlin.login.services.UserLoginServices
 import com.example.bookappkotlin.register.RegisterActivity
+import com.example.bookappkotlin.register.repository.RegisterRepository
+import com.example.bookappkotlin.register.services.RegisterService
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,14 +26,19 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
 
     //dependency
-    private lateinit var userService: UserLoginServices
+
+    private val userRegisterRepository by inject<LoginService>(){
+        parametersOf(getPreferences(MODE_PRIVATE))
+    }
+
+    private val userService by inject<LoginService>(){
+        parametersOf(userRegisterRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setup()
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
@@ -41,16 +51,6 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.setOnClickListener{
             validateData()
         }
-    }
-
-
-    //has the responsibility to start all the application
-    //dependency
-    private fun setup() {
-        val preferences = getPreferences(MODE_PRIVATE)
-        val firebase = FirebaseAuth.getInstance()
-        val repository = UserLoginRepository(firebase, preferences)
-        userService = UserLoginServices(repository)
     }
 
     private fun validateData() {

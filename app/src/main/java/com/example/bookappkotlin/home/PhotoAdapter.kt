@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.home.model.Meme
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>(), KoinComponent {
 
+    private val glide by inject<GlideImageLoader>()
     private var dataList = emptyList<Meme>()
-
     internal fun setDataList(userImageList: List<Meme>) {
         this.dataList = userImageList
     }
@@ -30,7 +31,8 @@ class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.Vie
         val data = dataList[position]
 
         holder.title.text = data.name
-        Glide.with(context).load(data.url).into(holder.image)
+
+        glide.loaderImage(context = context, imageData = data.url, holderImage = holder.image)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

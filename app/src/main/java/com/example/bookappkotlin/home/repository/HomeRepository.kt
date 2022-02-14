@@ -1,35 +1,26 @@
 package com.example.bookappkotlin.home.repository
 
+import android.util.Log
+import com.example.bookappkotlin.helpper.RetrofitHelper
 import com.example.bookappkotlin.home.model.MemeResponse
-import com.example.bookappkotlin.home.network.api.MemeApi
-import com.google.gson.GsonBuilder
+import com.example.bookappkotlin.home.network.client.MemeClient
 import io.reactivex.Observable
-import okhttp3.OkHttpClient
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 interface HomeRepository {
-    fun getAllMemes() : Observable<Response<MemeResponse>>
+    fun getAllMemes(): Observable<Response<MemeResponse>>
 }
 
-class UserHomeRepository() : HomeRepository {
+class UserHomeRepository() : HomeRepository, KoinComponent {
 
-    val BASE_URL = "https://api.imgflip.com"
+    private val baseUrl = "https://api.imgflip.com"
+    private val apiCall by inject<RetrofitHelper>()
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
-        val gson = GsonBuilder()
-            .create()
-
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(OkHttpClient().newBuilder().build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(MemeApi::class.java)
-            .getData()
+        Log.i("API CALL", "TESTER" + apiCall.initRetrofit(BASE_URL = baseUrl) )
+        //returns a retrofit2.adapter.rxjava2.CallExecuteObservable@85dc593
+        return apiCall.initRetrofit(BASE_URL = baseUrl)
     }
 }

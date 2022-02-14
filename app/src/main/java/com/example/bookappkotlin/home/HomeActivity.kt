@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.home.services.HomeServices
-import com.example.bookappkotlin.home.services.UserHomeServices
+import com.example.bookappkotlin.login.services.LoginService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class HomeActivity : AppCompatActivity() {
 
@@ -22,11 +23,9 @@ class HomeActivity : AppCompatActivity() {
         findViewById(R.id.recyclerView)
     }
 
-    //dependency
-    private val photoAdapter: PhotoAdapter by lazy {
-        PhotoAdapter(applicationContext)
+    private val photoAdapter by inject<PhotoAdapter>(){
+        parametersOf(applicationContext)
     }
-
 
     private val service by inject<HomeServices>()
 
@@ -43,15 +42,20 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+        Log.i("AQUI", "RECYCLER VIEW" + recyclerView)
+        recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
         recyclerView.adapter = photoAdapter
-        //dependency
         getMyData()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     // can be upgraded
     private fun getMyData() {
+
+        Log.i("HELP", "RETURN" + service.getAllMemes().subscribeOn(Schedulers.io()))
+        //io.reactivex.internal.operators.observable.ObservableSubscribeOn@bc4cafd
+
+
         service
             .getAllMemes()
             .subscribeOn(Schedulers.io())

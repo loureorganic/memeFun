@@ -1,8 +1,7 @@
 package com.example.bookappkotlin.app
 
 import android.app.Application
-import com.example.bookappkotlin.di.apiModule
-import com.example.bookappkotlin.di.repositoryModule
+import com.example.bookappkotlin.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -11,7 +10,7 @@ import org.koin.core.logger.Level
 
 
 //DSL Application where Koin has been initialized
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
@@ -25,8 +24,19 @@ class App: Application() {
             androidLogger(Level.ERROR)
             androidContext(this@App)
             androidFileProperties()
-            // set a list of Koin modules to load in the container (list or vararg list)
-            modules(listOf(repositoryModule, apiModule))
+            // set a list of Koin modules to load in the container
+            modules(
+                listOf(
+                    repositoryModule,
+                    apiModule,
+                    registerRepositoryModule,
+                    loginRepositoryModule,
+                    splashRepositoryModule,
+                    glideModule,
+                    photoAdapterModule,
+                    recyclerModule
+                )
+            )
         }
     }
 }
