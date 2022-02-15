@@ -19,8 +19,6 @@ class UserHomeRepository() : HomeRepository, KoinComponent {
     private val apiCall by inject<RetrofitHelper>()
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
-        Log.i("API CALL", "TESTER" + apiCall.initRetrofit(BASE_URL = baseUrl) )
-        //returns a retrofit2.adapter.rxjava2.CallExecuteObservable@85dc593
         return apiCall.initRetrofit(BASE_URL = baseUrl)
     }
 }

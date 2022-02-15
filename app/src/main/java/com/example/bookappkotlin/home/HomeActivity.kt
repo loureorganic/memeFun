@@ -42,7 +42,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i("AQUI", "RECYCLER VIEW" + recyclerView)
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
         recyclerView.adapter = photoAdapter
         getMyData()
@@ -51,10 +50,6 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     // can be upgraded
     private fun getMyData() {
-
-        Log.i("HELP", "RETURN" + service.getAllMemes().subscribeOn(Schedulers.io()))
-        //io.reactivex.internal.operators.observable.ObservableSubscribeOn@bc4cafd
-
 
         service
             .getAllMemes()

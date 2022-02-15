@@ -16,9 +16,6 @@ class UserHomeServices(
 
     override fun getAllMemes() : Observable<MemeResponse?> {
 
-        Log.i("Returned", "Return value service inside " + repository.getAllMemes())
-        //retrofit2.adapter.rxjava2.CallExecuteObservable@38a748e
-
         return repository
             .getAllMemes()
             .filter { it.isSuccessful }
