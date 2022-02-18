@@ -29,7 +29,6 @@ class HomeActivity : AppCompatActivity() {
 
     private val service by inject<HomeServices>()
 
-
     private lateinit var binding: ActivityHomeBinding
 
     //dependency

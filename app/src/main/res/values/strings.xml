@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Book Meme Kotlin</string>
-    <string name="new_user_signup">New User <b> Sign Up!</b> </string>
+    <string name="app_name">MemeFun</string>
+    <string name="new_user_signup">No have an account yet ?<b> Sign Up!</b> </string>
+    <string name="memefun">Meme<font fgcolor="#FFBE33">Fun</font></string>
 </resources>

@@ -34,7 +34,6 @@ class App : Application() {
                     splashRepositoryModule,
                     glideModule,
                     photoAdapterModule,
-                    recyclerModule
                 )
             )
         }

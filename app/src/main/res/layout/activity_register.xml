@@ -4,52 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@drawable/background"
     tools:context=".register.RegisterActivity">
-
-    <RelativeLayout
-        android:id="@+id/toolbarRl"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/shape_toolbar01">
-        <ImageButton
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_back_white"/>
-
-        <ImageView
-            android:id="@+id/iconIv"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/logo"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iconIv"
-            android:layout_marginTop="10dp"
-            android:text="Create new Account"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="28sp"
-            android:layout_centerHorizontal="true"/>
-
-
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="225dp"
-        >
+        android:layout_marginEnd="40dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -58,22 +22,22 @@
                 android:id="@+id/nameTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                  app:hintEnabled="false">
-                    <EditText
-                        android:id="@+id/nameEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_edittext01"
-                        android:drawableStart="@drawable/ic_person_gray"
-                        android:drawablePadding="10dp"
-                        android:hint="Name"
-                        android:inputType="textPersonName|textCapWords"
-                        android:padding="10dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray01"/>
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/nameEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_edittext01"
+                    android:drawablePadding="10dp"
+                    android:hint="Name"
+                    android:inputType="textPersonName|textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray01" />
 
 
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailTil"
@@ -82,18 +46,18 @@
                 android:layout_below="@id/nameTil"
                 android:layout_marginTop="5dp"
                 app:hintEnabled="false">
+
                 <EditText
                     android:id="@+id/emailEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_edittext01"
-                    android:drawableStart="@drawable/ic_email_gray"
                     android:drawablePadding="10dp"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray01"/>
+                    android:textColorHint="@color/gray01" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -103,21 +67,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/emailTil"
-                app:passwordToggleEnabled="true"
                 android:layout_marginTop="5dp"
-                app:hintEnabled="false">
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
+
                 <EditText
                     android:id="@+id/passwordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_edittext01"
-                    android:drawableStart="@drawable/ic_lock_gray"
                     android:drawablePadding="10dp"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray01"/>
+                    android:textColorHint="@color/gray01" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -128,37 +92,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passwordTil"
-                app:passwordToggleEnabled="true"
                 android:layout_marginTop="5dp"
-                app:hintEnabled="false">
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
+
                 <EditText
                     android:id="@+id/cPasswordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_edittext01"
-                    android:drawableStart="@drawable/ic_lock_gray"
                     android:drawablePadding="10dp"
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray01"/>
+                    android:textColorHint="@color/gray01" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/registerBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cPasswordTil"
-                    android:background="@drawable/shape_button"
-                    android:text="Register"
-                    android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/registerBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cPasswordTil"
+                android:background="@drawable/shape_button"
+                android:text="Register"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="71dp"
+        android:layout_height="82dp"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:rotationX="0"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="110dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Welcome to the fun!"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:typeface="sans" />
 
 
 </RelativeLayout>
