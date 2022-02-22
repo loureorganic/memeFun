@@ -74,15 +74,17 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.5"
     // No more koin-android-viewmodel, koin-android-scope, koin-android-fragment
 
-// Java Compatibility
+    // Java Compatibility
     implementation "io.insert-koin:koin-android-compat:3.1.5"
-// Jetpack WorkManager
+    // Jetpack WorkManager
     implementation "io.insert-koin:koin-androidx-workmanager:3.1.5"
-// Navigation Graph
+    // Navigation Graph
     implementation "io.insert-koin:koin-androidx-navigation:3.1.5"
-// Jetpack Compose
+    // Jetpack Compose
     implementation "io.insert-koin:koin-androidx-compose:3.1.5"
-
+    //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    //Material Google
+    implementation 'com.google.android.material:material:1.5.0'
 }

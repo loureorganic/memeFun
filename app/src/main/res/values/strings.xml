@@ -2,8 +2,12 @@
     <string name="app_name">MemeFun</string>
     <string name="new_user_signup">No have an account yet ?<b> Sign Up!</b> </string>
     <string name="memefun">Meme<font fgcolor="#FFBE33">Fun</font></string>
-    <string name="type_your_name_here">Type your name here</string>
-    <string name="type_your_email_here">Type your email here</string>
-    <string name="type_your_password_here">Type your password here</string>
-    <string name="type_your_confirm_password">Type your confirm password</string>
+    <string name="type_your_name_here">Insert your full name</string>
+    <string name="type_your_email_here">Insert an email valid</string>
+    <string name="type_your_password_here">Insert a password</string>
+    <string name="type_your_confirm_password">Confirm your password</string>
+    <string name="logo_of_memefun">Logo of MemeFun</string>
+    <string name="register">Register</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

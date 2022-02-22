@@ -26,10 +26,11 @@
                 app:hintEnabled="false">
 
                 <EditText
+
                     android:id="@+id/nameEt"
                     android:layout_width="match_parent"
+                    android:background="@drawable/background_rounded_input"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/main_gray"
                     android:hint="@string/type_your_name_here"
                     android:inputType="textPersonName|textCapWords"
                     android:padding="10dp"
@@ -50,9 +51,9 @@
 
                 <EditText
                     android:id="@+id/emailEt"
+                    android:background="@drawable/background_rounded_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/main_gray"
                     android:hint="@string/type_your_email_here"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
@@ -75,8 +76,7 @@
                     android:id="@+id/passwordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_edittext01"
-                    android:drawablePadding="10dp"
+                    android:background="@drawable/background_rounded_input"
                     android:hint="@string/type_your_password_here"
                     android:inputType="textPassword"
                     android:padding="10dp"
@@ -100,8 +100,7 @@
                     android:id="@+id/cPasswordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_edittext01"
-                    android:drawablePadding="10dp"
+                    android:background="@drawable/background_rounded_input"
                     android:hint="@string/type_your_confirm_password"
                     android:inputType="textPassword"
                     android:padding="10dp"
@@ -113,14 +112,16 @@
 
             <Button
                 android:id="@+id/registerBtn"
+                android:layout_alignParentEnd="true"
                 android:layout_width="200dp"
                 android:layout_height="55dp"
                 android:layout_below="@+id/cPasswordTil"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_button"
-                android:text="Register"
+                android:text="@string/register"
                 android:textColor="@color/white" />
+
         </RelativeLayout>
 
     </ScrollView>
@@ -135,6 +136,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="100dp"
+        android:contentDescription="@string/logo_of_memefun"
         android:rotationX="0"
         app:srcCompat="@drawable/logo" />
 
@@ -142,14 +144,14 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="40dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-black"
-        android:text="Welcome to the fun!"
+        android:text="Sign up"
         android:textColor="#000000"
         android:textSize="24sp"
         android:typeface="sans" />

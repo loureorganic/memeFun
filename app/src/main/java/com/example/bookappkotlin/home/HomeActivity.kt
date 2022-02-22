@@ -3,13 +3,15 @@ package com.example.bookappkotlin.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.home.services.HomeServices
-import com.example.bookappkotlin.login.services.LoginService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,6 +21,9 @@ import org.koin.core.parameter.parametersOf
 class HomeActivity : AppCompatActivity() {
 
     //dependency
+
+    lateinit var toggle: ActionBarDrawerToggle
+
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
     }
@@ -44,6 +49,27 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
         recyclerView.adapter = photoAdapter
         getMyData()
+
+        toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
+        binding.drawerLayoutOne.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navigationView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.item_1 -> Toast.makeText(applicationContext, "Clicked item 1", Toast.LENGTH_LONG).show()
+                R.id.item_2 -> Toast.makeText(applicationContext, "Clicked item 2", Toast.LENGTH_LONG).show()
+                R.id.item_3 -> Toast.makeText(applicationContext, "Clicked item 3", Toast.LENGTH_LONG).show()
+            }
+            true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("NotifyDataSetChanged")
