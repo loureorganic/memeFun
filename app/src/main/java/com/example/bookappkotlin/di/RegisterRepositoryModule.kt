@@ -1,8 +1,5 @@
 package com.example.bookappkotlin.di
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import com.example.bookappkotlin.register.repository.RegisterRepository
 import com.example.bookappkotlin.register.repository.UserRegisterRepository
 import com.example.bookappkotlin.register.services.RegisterService
@@ -21,5 +18,4 @@ val registerRepositoryModule = module {
     factory<RegisterService> {
         UserRegisterServices(repository = get())
     }
-
 }

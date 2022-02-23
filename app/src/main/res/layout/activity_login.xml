@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".login.controllers.LoginActivity">
+    tools:context=".login.ui.LoginActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -74,16 +74,15 @@
 
             <Button
                 android:id="@+id/loginBtn"
-                android:layout_width="200dp"
+                android:layout_width="180dp"
                 android:layout_height="55dp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/forgotTv"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/main_blue"
                 android:text="Login"
-                android:layout_alignParentEnd="true"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
     </ScrollView>
 

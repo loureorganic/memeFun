@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.home
+package com.example.bookappkotlin.home.utils
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import com.example.bookappkotlin.home.model.Meme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>(), KoinComponent {
+class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>(),
+    KoinComponent {
 
     private val glide by inject<GlideImageLoader>()
     private var dataList = emptyList<Meme>()

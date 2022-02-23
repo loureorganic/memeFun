@@ -1,6 +1,5 @@
 package com.example.bookappkotlin.register.services
 
-import android.widget.Toast
 import com.example.bookappkotlin.register.model.User
 import com.example.bookappkotlin.register.repository.RegisterRepository
 import com.example.bookappkotlin.register.repository.RegisterResponse
@@ -21,6 +20,4 @@ class UserRegisterServices(
     override fun isLogged(): Boolean {
       return repository.isLogged()
     }
-
-
 }

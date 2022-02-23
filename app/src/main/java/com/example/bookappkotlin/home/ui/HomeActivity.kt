@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.home
+package com.example.bookappkotlin.home.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.home.services.HomeServices
+import com.example.bookappkotlin.home.utils.PhotoAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,8 +20,6 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 class HomeActivity : AppCompatActivity() {
-
-    //dependency
 
     lateinit var toggle: ActionBarDrawerToggle
 
@@ -58,9 +57,21 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.item_1 -> Toast.makeText(applicationContext, "Clicked item 1", Toast.LENGTH_LONG).show()
-                R.id.item_2 -> Toast.makeText(applicationContext, "Clicked item 2", Toast.LENGTH_LONG).show()
-                R.id.item_3 -> Toast.makeText(applicationContext, "Clicked item 3", Toast.LENGTH_LONG).show()
+                R.id.item_1 -> Toast.makeText(
+                    applicationContext,
+                    "Clicked item 1",
+                    Toast.LENGTH_LONG
+                ).show()
+                R.id.item_2 -> Toast.makeText(
+                    applicationContext,
+                    "Clicked item 2",
+                    Toast.LENGTH_LONG
+                ).show()
+                R.id.item_3 -> Toast.makeText(
+                    applicationContext,
+                    "Clicked item 3",
+                    Toast.LENGTH_LONG
+                ).show()
             }
             true
         }

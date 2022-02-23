@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@drawable/back01" />
+            android:src="@drawable/background" />
 
         <TextView
             android:id="@+id/textTitle"

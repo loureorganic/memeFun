@@ -33,5 +33,4 @@ class UserLoginRepository(
     override fun isLogged(): Boolean {
         return preferences.getBoolean(loginKey, false)
     }
-
 }

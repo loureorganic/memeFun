@@ -14,7 +14,6 @@ interface RepositorySplash {
     fun isLogged(): Boolean
 }
 
-
 class SplashRepository (
     private val firebaseAuth: FirebaseAuth,
     private val preferences: SharedPreferences,
@@ -52,5 +51,4 @@ class SplashRepository (
     override fun isLogged(): Boolean {
         return preferences.getBoolean(splashKey, false)
     }
-
 }

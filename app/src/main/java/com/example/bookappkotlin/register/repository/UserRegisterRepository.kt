@@ -53,6 +53,4 @@ class UserRegisterRepository(
     override fun isLogged(): Boolean {
         return preferences.getBoolean(registerKey, false)
     }
-
-
 }

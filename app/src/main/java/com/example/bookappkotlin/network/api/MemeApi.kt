@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.home.network.api
+package com.example.bookappkotlin.network.api
 
 import com.example.bookappkotlin.home.model.MemeResponse
 import io.reactivex.Observable

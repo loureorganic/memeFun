@@ -20,5 +20,4 @@ class UserLoginServices(
     override fun isLogged(): Boolean {
         return repository.isLogged()
     }
-
 }

@@ -18,6 +18,4 @@ val loginRepositoryModule = module {
     factory<LoginService>{
         UserLoginServices(get())
     }
-
-
 }

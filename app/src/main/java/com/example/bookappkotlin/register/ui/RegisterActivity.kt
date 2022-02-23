@@ -1,19 +1,16 @@
-package com.example.bookappkotlin.register
+package com.example.bookappkotlin.register.ui
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bookappkotlin.home.HomeActivity
 import com.example.bookappkotlin.databinding.ActivityRegisterBinding
+import com.example.bookappkotlin.home.ui.HomeActivity
 import com.example.bookappkotlin.register.model.User
 import com.example.bookappkotlin.register.repository.RegisterRepository
 import com.example.bookappkotlin.register.services.RegisterService
-import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -25,14 +22,12 @@ class RegisterActivity : AppCompatActivity() {
     //dependency
 
     private val userRepository by inject<RegisterRepository>(){
-        parametersOf(getPreferences(Context.MODE_PRIVATE))
+        parametersOf(getPreferences(MODE_PRIVATE))
     }
 
     private val userService by inject<RegisterService>(){
         parametersOf(userRepository)
     }
-
-
 
     private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {

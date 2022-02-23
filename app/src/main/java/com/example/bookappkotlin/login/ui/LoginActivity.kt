@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.login.controllers
+package com.example.bookappkotlin.login.ui
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -6,16 +6,11 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bookappkotlin.home.HomeActivity
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
+import com.example.bookappkotlin.home.ui.HomeActivity
 import com.example.bookappkotlin.login.model.User
-import com.example.bookappkotlin.login.repository.UserLoginRepository
 import com.example.bookappkotlin.login.services.LoginService
-import com.example.bookappkotlin.login.services.UserLoginServices
-import com.example.bookappkotlin.register.RegisterActivity
-import com.example.bookappkotlin.register.repository.RegisterRepository
-import com.example.bookappkotlin.register.services.RegisterService
-import com.google.firebase.auth.FirebaseAuth
+import com.example.bookappkotlin.register.ui.RegisterActivity
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
