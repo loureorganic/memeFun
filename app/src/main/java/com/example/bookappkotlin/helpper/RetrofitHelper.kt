@@ -24,6 +24,5 @@ class RetrofitHelper {
                 .build()
                 .create(MemeApi::class.java)
                 .getData()
-
     }
 }

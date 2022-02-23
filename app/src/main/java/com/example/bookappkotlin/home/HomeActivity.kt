@@ -48,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
         recyclerView.adapter = photoAdapter
+
         getMyData()
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
@@ -72,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+   @SuppressLint("NotifyDataSetChanged")
     // can be upgraded
     private fun getMyData() {
 
@@ -89,6 +90,7 @@ class HomeActivity : AppCompatActivity() {
                     photoAdapter.setDataList(memeList)
                     photoAdapter.notifyDataSetChanged()
                 }
+                Log.i("TEST", "RETURN GET DATA$response")
             }.run { composite.add(this) }
     }
 

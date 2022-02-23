@@ -3,6 +3,7 @@ package com.example.bookappkotlin.home.repository
 import android.util.Log
 import com.example.bookappkotlin.helpper.RetrofitHelper
 import com.example.bookappkotlin.home.model.MemeResponse
+import com.example.bookappkotlin.home.network.api.MemeApi
 import com.example.bookappkotlin.home.network.client.MemeClient
 import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
@@ -15,10 +16,10 @@ interface HomeRepository {
 
 class UserHomeRepository() : HomeRepository, KoinComponent {
 
-    private val baseUrl = "https://api.imgflip.com"
-    private val apiCall by inject<RetrofitHelper>()
+    private val apiCall by inject<MemeApi>()
+
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
-        return apiCall.initRetrofit(BASE_URL = baseUrl)
+        return apiCall.getData()
     }
 }
