@@ -36,10 +36,10 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="email"/>
+            android:text="email"
+            android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTil"
@@ -60,11 +60,12 @@
                 android:id="@+id/emailEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Insert your email here"
+                android:hint="insert your email"
                 android:background="@color/main_gray"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:layout_marginTop="8dp"
+                android:autofillHints="emailAddress"
                 android:textColor="@color/black"
                 android:layout_marginBottom="8dp"
                 android:textColorHint="@color/gray01" />
@@ -85,7 +86,8 @@
                 android:id="@+id/passwordEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Insert your password here"
+                android:hint="insert your password"
+                android:autofillHints="password"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:background="@color/main_gray"
@@ -112,6 +114,7 @@
             android:layout_below="@+id/forgotTv"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-black"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/main_blue"
             android:text="Login"
