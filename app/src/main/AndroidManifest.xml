@@ -21,11 +21,14 @@
             android:exported="false" />
         <activity
             android:name=".login.ui.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name=".register.ui.RegisterActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name=".splash.ui.SplashActivity"
             android:exported="true">
             <intent-filter>

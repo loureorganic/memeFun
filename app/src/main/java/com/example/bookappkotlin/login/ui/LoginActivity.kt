@@ -20,8 +20,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var progressDialog: ProgressDialog
 
-    //dependency
-
     private val userRegisterRepository by inject<LoginService>(){
         parametersOf(getPreferences(MODE_PRIVATE))
     }
