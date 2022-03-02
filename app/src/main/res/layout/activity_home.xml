@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:id="@+id/navigationView"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
+            android:layout_gravity="start|left"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/nav_header_menu" />

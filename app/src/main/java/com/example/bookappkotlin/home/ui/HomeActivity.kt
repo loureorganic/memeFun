@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.home.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -13,6 +14,8 @@ import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.home.services.HomeServices
 import com.example.bookappkotlin.home.utils.PhotoAdapter
+import com.example.bookappkotlin.login.ui.LoginActivity
+import com.example.bookappkotlin.profile.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,10 +27,10 @@ class HomeActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     private val recyclerView: RecyclerView by lazy {
-        findViewById(R.id.recyclerView)
-    }
+      findViewById(R.id.recyclerView)
+}
 
-    private val photoAdapter by inject<PhotoAdapter>(){
+    private val photoAdapter by inject<PhotoAdapter>() {
         parametersOf(applicationContext)
     }
 
@@ -45,49 +48,41 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
-        recyclerView.adapter = photoAdapter
-
-        getMyData()
-
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
         binding.drawerLayoutOne.addDrawerListener(toggle)
         toggle.syncState()
 
+        recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+        recyclerView.adapter = photoAdapter
+
+        getMyData()
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navigationView.bringToFront()
+
         binding.navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.item_1 -> Toast.makeText(
-                    applicationContext,
-                    "Clicked item 1",
-                    Toast.LENGTH_LONG
-                ).show()
-                R.id.item_2 -> Toast.makeText(
-                    applicationContext,
-                    "Clicked item 2",
-                    Toast.LENGTH_LONG
-                ).show()
-                R.id.item_3 -> Toast.makeText(
-                    applicationContext,
-                    "Clicked item 3",
-                    Toast.LENGTH_LONG
-                ).show()
+            when (it.itemId) {
+                Log.d("OI", "OII"),
+                R.id.item_1 -> startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                R.id.item_2 -> Toast.makeText(applicationContext,
+                    "Clicked item 2", Toast.LENGTH_LONG).show()
+                R.id.item_3 -> startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
             }
             true
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-   @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged")
     // can be upgraded
     private fun getMyData() {
-
         service
             .getAllMemes()
             .subscribeOn(Schedulers.io())

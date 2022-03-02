@@ -15,7 +15,6 @@ class UserHomeServices(
 ) : HomeServices {
 
     override fun getAllMemes() : Observable<MemeResponse?> {
-
         return repository
             .getAllMemes()
             .filter { it.isSuccessful }
