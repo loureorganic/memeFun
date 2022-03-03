@@ -15,7 +15,7 @@ import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.home.services.HomeServices
 import com.example.bookappkotlin.home.utils.PhotoAdapter
 import com.example.bookappkotlin.login.ui.LoginActivity
-import com.example.bookappkotlin.profile.ProfileActivity
+import com.example.bookappkotlin.profile.ui.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -63,7 +63,6 @@ class HomeActivity : AppCompatActivity() {
 
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                Log.d("OI", "OII"),
                 R.id.item_1 -> startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
                 R.id.item_2 -> Toast.makeText(applicationContext,
                     "Clicked item 2", Toast.LENGTH_LONG).show()

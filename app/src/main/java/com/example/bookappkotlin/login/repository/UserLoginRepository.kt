@@ -8,7 +8,6 @@ typealias LoginResponse = (success: Boolean) -> Unit
 
 interface LoginRepository {
     fun loginUser(user: User, response: LoginResponse)
-
     fun isLogged(): Boolean
 }
 

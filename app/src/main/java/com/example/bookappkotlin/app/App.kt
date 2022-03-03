@@ -18,12 +18,12 @@ class App : Application() {
     }
 
     private fun initKoin() {
-        //create a container configuration and register it in the to allow the use of GlobalContext
+
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@App)
             androidFileProperties()
-            // set a list of Koin modules to load in the container
+
             modules(
                 listOf(
                     repositoryModule,
@@ -33,6 +33,7 @@ class App : Application() {
                     splashRepositoryModule,
                     glideModule,
                     photoAdapterModule,
+                    firebaseModule
                 )
             )
         }
