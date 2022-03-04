@@ -11,8 +11,7 @@ import org.koin.dsl.module
 val loginRepositoryModule = module {
 
     single<LoginRepository>{
-        val firebase = FirebaseAuth.getInstance()
-        UserLoginRepository(firebaseAuth = firebase, preferences = get())
+        UserLoginRepository(preferences = get())
     }
 
     factory<LoginService>{

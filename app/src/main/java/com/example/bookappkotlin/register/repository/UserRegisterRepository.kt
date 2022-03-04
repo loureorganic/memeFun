@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import com.example.bookappkotlin.register.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 typealias RegisterResponse = (success: Boolean) -> Unit
 
@@ -13,10 +15,9 @@ interface RegisterRepository {
 }
 
 class UserRegisterRepository(
-    private val firebaseAuth: FirebaseAuth,
     private val preferences: SharedPreferences,
-):RegisterRepository {
-
+):RegisterRepository, KoinComponent {
+    private val firebaseAuth by inject<FirebaseAuth>()
     private val registerKey = "register"
 
     override fun createUserAccount(user: User, response: RegisterResponse) {

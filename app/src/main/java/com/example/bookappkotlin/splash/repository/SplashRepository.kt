@@ -6,6 +6,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 typealias SplashResponse = (success: Boolean) -> Unit
 
@@ -15,9 +17,11 @@ interface RepositorySplash {
 }
 
 class SplashRepository (
-    private val firebaseAuth: FirebaseAuth,
     private val preferences: SharedPreferences,
-): RepositorySplash {
+): RepositorySplash, KoinComponent {
+
+    private val firebaseAuth by inject<FirebaseAuth>()
+
 
     private val splashKey = "splash"
     override fun checkUser(response: SplashResponse) {

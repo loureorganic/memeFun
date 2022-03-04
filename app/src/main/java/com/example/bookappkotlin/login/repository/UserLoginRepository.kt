@@ -3,6 +3,8 @@ package com.example.bookappkotlin.login.repository
 import android.content.SharedPreferences
 import com.example.bookappkotlin.login.model.User
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 typealias LoginResponse = (success: Boolean) -> Unit
 
@@ -12,10 +14,10 @@ interface LoginRepository {
 }
 
 class UserLoginRepository(
-   private val firebaseAuth: FirebaseAuth,
    private val preferences: SharedPreferences,
-): LoginRepository {
+): LoginRepository, KoinComponent {
 
+    private val firebaseAuth by inject<FirebaseAuth>()
     private val loginKey = "login"
 
     override fun loginUser(user: User, response: LoginResponse) {

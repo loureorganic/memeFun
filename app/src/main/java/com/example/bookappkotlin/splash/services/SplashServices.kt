@@ -1,7 +1,5 @@
 package com.example.bookappkotlin.splash.services
 
-import com.example.bookappkotlin.register.model.User
-import com.example.bookappkotlin.register.repository.RegisterRepository
 import com.example.bookappkotlin.splash.repository.SplashRepository
 import com.example.bookappkotlin.splash.repository.SplashResponse
 

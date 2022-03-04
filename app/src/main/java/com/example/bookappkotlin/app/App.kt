@@ -12,7 +12,6 @@ import org.koin.core.logger.Level
 class App : Application() {
 
     override fun onCreate() {
-
         super.onCreate()
         initKoin()
     }
@@ -26,7 +25,7 @@ class App : Application() {
 
             modules(
                 listOf(
-                    repositoryModule,
+                    homeRepositoryModule,
                     apiModule,
                     registerRepositoryModule,
                     loginRepositoryModule,
