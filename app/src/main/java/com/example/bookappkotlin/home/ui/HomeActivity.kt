@@ -95,7 +95,6 @@ class HomeActivity : AppCompatActivity() {
                     photoAdapter.setDataList(memeList)
                     photoAdapter.notifyDataSetChanged()
                 }
-                Log.i("TEST", "RETURN GET DATA$response")
             }.run { composite.add(this) }
     }
 

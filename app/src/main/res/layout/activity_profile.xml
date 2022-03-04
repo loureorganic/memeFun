@@ -32,10 +32,10 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignBottom="@id/cardImage"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="20dp"
         android:layout_toRightOf="@id/cardImage"
         android:background="@drawable/outline_edit_black_36dp" />
