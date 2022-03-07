@@ -21,7 +21,6 @@ class SplashActivity : AppCompatActivity() {
         parametersOf(splashRepository)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,7 +30,6 @@ class SplashActivity : AppCompatActivity() {
             splashService.checkUser(this::redirectUserDashboard)
         }, 2000)
     }
-
 
     private fun redirectUserDashboard(accepted: Boolean) {
         if (!accepted) {

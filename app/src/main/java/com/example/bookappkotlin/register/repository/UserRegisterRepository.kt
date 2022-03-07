@@ -23,7 +23,7 @@ class UserRegisterRepository(
     override fun createUserAccount(user: User, response: RegisterResponse) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
-                var timestamp = System.currentTimeMillis()
+                val timestamp = System.currentTimeMillis()
 
                 val uid = firebaseAuth.uid
 

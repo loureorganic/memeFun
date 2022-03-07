@@ -19,8 +19,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
 
-    //dependency
-
     private val userRepository by inject<RegisterRepository>(){
         parametersOf(getPreferences(MODE_PRIVATE))
     }

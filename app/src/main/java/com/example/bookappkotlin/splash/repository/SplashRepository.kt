@@ -21,9 +21,8 @@ class SplashRepository (
 ): RepositorySplash, KoinComponent {
 
     private val firebaseAuth by inject<FirebaseAuth>()
-
-
     private val splashKey = "splash"
+
     override fun checkUser(response: SplashResponse) {
 
         val firebaseUser = firebaseAuth.currentUser
@@ -32,23 +31,20 @@ class SplashRepository (
             preferences.edit().putBoolean(splashKey, false).apply()
             response(false)
         } else {
-            val firebaseUser = firebaseAuth.currentUser!!
-
             val ref = FirebaseDatabase.getInstance().getReference("Users")
-
-            ref.child(firebaseUser.uid)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val userType = snapshot.child("userType").value
-                        if(userType == "user"){
-                            preferences.edit().putBoolean(splashKey, true).apply()
-                            response(true)
+                ref.child(firebaseUser.uid)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val userType = snapshot.child("userType").value
+                            if(userType == "user"){
+                                preferences.edit().putBoolean(splashKey, true).apply()
+                                response(true)
+                            }
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                })
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                    })
         }
     }
 
