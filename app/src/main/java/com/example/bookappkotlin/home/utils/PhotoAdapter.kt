@@ -15,7 +15,7 @@ import org.koin.core.component.inject
 class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>(),
     KoinComponent {
 
-    private val glide by inject<GlideImageLoader>()
+    private val glide by inject<ImageLoader>()
     private var dataList = emptyList<Meme>()
     internal fun setDataList(userImageList: List<Meme>) {
         this.dataList = userImageList

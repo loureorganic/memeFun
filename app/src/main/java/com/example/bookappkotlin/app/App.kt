@@ -31,7 +31,8 @@ class App : Application() {
                     splashRepositoryModule,
                     glideModule,
                     photoAdapterModule,
-                    firebaseModule
+                    firebaseAuthModule,
+                    firebaseDatabaseModule
                 )
             )
         }

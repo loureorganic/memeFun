@@ -17,8 +17,10 @@ interface RegisterRepository {
 class UserRegisterRepository(
     private val preferences: SharedPreferences,
 ):RegisterRepository, KoinComponent {
+
     private val firebaseAuth by inject<FirebaseAuth>()
     private val registerKey = "register"
+    private val firebaseDatabase by inject<FirebaseDatabase>()
 
     override fun createUserAccount(user: User, response: RegisterResponse) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
@@ -35,7 +37,7 @@ class UserRegisterRepository(
                 hashMap["userType"] = "user"
                 hashMap["timestamp"] = timestamp
 
-                val ref = FirebaseDatabase.getInstance().getReference("Users")
+                val ref = firebaseDatabase.getReference("Users")
                 ref.child(uid!!).setValue(hashMap)
                     .addOnSuccessListener {
                     preferences.edit().putBoolean(registerKey, true).apply()
