@@ -8,7 +8,6 @@ import org.koin.dsl.module
 
 
 val loginRepositoryModule = module {
-
     single<LoginRepository>{
         UserLoginRepository(preferences = get())
     }
