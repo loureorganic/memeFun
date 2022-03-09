@@ -3,7 +3,6 @@ package com.example.bookappkotlin.home.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -24,13 +23,13 @@ import org.koin.core.parameter.parametersOf
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var toggle: ActionBarDrawerToggle
 
     private val recyclerView: RecyclerView by lazy {
       findViewById(R.id.recyclerView)
 }
 
-    private val photoAdapter by inject<PhotoAdapter>() {
+    private val photoAdapter by inject<PhotoAdapter> {
         parametersOf(applicationContext)
     }
 

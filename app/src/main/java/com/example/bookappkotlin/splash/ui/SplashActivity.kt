@@ -1,5 +1,6 @@
 package com.example.bookappkotlin.splash.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import com.example.bookappkotlin.splash.services.SplashService
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
     private val splashRepository by inject<RepositorySplash>(){

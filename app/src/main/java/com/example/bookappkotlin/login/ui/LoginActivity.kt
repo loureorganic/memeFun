@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var progressDialog: ProgressDialog
 
-    private val userRegisterRepository by inject<LoginService>(){
+    private val userRegisterRepository by inject<LoginService> {
         parametersOf(getPreferences(MODE_PRIVATE))
     }
 
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validateData() {
 
-        val user: User = User(
+        val user = User(
             email = binding.emailEt.text.toString().trim(),
             password = binding.passwordEt.text.toString().trim()
         )

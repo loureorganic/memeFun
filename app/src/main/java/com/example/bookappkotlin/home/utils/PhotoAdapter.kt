@@ -21,14 +21,14 @@ class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.Vie
         this.dataList = userImageList
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.photo_layout, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount() = dataList.size
 
-    override fun onBindViewHolder(holder: PhotoAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = dataList[position]
 
         holder.title.text = data.name

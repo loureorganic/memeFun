@@ -5,10 +5,7 @@ import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.example.bookappkotlin.register.model.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 typealias RegisterResponse = (success: Boolean) -> Unit
 

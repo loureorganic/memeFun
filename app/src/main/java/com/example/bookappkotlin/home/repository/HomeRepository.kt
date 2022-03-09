@@ -11,7 +11,7 @@ interface HomeRepository {
     fun getAllMemes(): Observable<Response<MemeResponse>>
 }
 
-class UserHomeRepository() : HomeRepository, KoinComponent {
+class UserHomeRepository : HomeRepository, KoinComponent {
 
     private val apiCall by inject<MemeApi>()
 

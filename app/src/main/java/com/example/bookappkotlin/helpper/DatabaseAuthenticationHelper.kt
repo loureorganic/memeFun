@@ -9,9 +9,7 @@ interface HelperFirebase{
 }
 
 
-class DatabaseAuthenticationHelper(
-
-) : HelperFirebase, KoinComponent{
+class DatabaseAuthenticationHelper : HelperFirebase, KoinComponent{
 
     private val firebaseAuth by inject<FirebaseAuth>()
 
