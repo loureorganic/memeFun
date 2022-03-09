@@ -1,6 +1,8 @@
 package com.example.bookappkotlin.register.repository
 
 import android.content.SharedPreferences
+import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
+import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.example.bookappkotlin.register.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -18,16 +20,17 @@ class UserRegisterRepository(
     private val preferences: SharedPreferences,
 ):RegisterRepository, KoinComponent {
 
-    private val firebaseAuth by inject<FirebaseAuth>()
     private val registerKey = "register"
-    private val firebaseDatabase by inject<FirebaseDatabase>()
+
+    private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
+    private val databaseGeneralHelper = DatabaseGeneralHelper()
 
     override fun createUserAccount(user: User, response: RegisterResponse) {
-        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
+        databaseAuthenticationHelper.databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
                 val timestamp = System.currentTimeMillis()
 
-                val uid = firebaseAuth.uid
+                val uid = databaseAuthenticationHelper.databaseAuthentication().uid
 
                 val hashMap: HashMap<String, Any?> = HashMap()
                 hashMap["uid"] = uid
@@ -37,7 +40,7 @@ class UserRegisterRepository(
                 hashMap["userType"] = "user"
                 hashMap["timestamp"] = timestamp
 
-                val ref = firebaseDatabase.getReference("Users")
+                val ref = databaseGeneralHelper.liveDatabase().getReference("Users")
                 ref.child(uid!!).setValue(hashMap)
                     .addOnSuccessListener {
                     preferences.edit().putBoolean(registerKey, true).apply()

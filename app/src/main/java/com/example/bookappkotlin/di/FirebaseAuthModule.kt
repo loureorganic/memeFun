@@ -6,7 +6,8 @@ import org.koin.dsl.module
 
 
 val firebaseAuthModule = module {
-    factory {
-        FirebaseAuth.getInstance()
+
+   factory {
+         FirebaseAuth.getInstance()
     }
 }

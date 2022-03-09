@@ -9,7 +9,7 @@ interface HelperFirebase{
 }
 
 
-class DatabaseHelper(
+class DatabaseAuthenticationHelper(
 
 ) : HelperFirebase, KoinComponent{
 

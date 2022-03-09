@@ -1,5 +1,7 @@
 package com.example.bookappkotlin.profile.repository
 
+import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
+import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.google.firebase.database.*
 import org.koin.core.component.KoinComponent
 
@@ -9,10 +11,15 @@ interface RepositoryProfile {
 
 class ProfileRepository(
 ): RepositoryProfile, KoinComponent {
+
+    //depedency
     private lateinit var database: DatabaseReference
 
+    private val databaseGeneralHelper = DatabaseGeneralHelper()
+
+
     override fun userData() {
-        database =  FirebaseDatabase.getInstance().getReference("Users")
+        database =  databaseGeneralHelper.liveDatabase().getReference("Users")
 
         database.database.reference.child("Users").addListenerForSingleValueEvent(
             object : ValueEventListener {
