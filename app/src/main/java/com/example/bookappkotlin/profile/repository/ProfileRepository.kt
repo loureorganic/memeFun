@@ -1,5 +1,6 @@
 package com.example.bookappkotlin.profile.repository
 
+import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.google.firebase.database.*
@@ -16,10 +17,10 @@ class ProfileRepository(
     private lateinit var database: DatabaseReference
 
     private val databaseGeneralHelper = DatabaseGeneralHelper()
-
+    private val applicationConstants = ApplicationConstants()
 
     override fun userData() {
-        database =  databaseGeneralHelper.liveDatabase().getReference("Users")
+        database =  databaseGeneralHelper.liveDatabase().getReference(applicationConstants.FIREBASE_USERS)
 
         database.database.reference.child("Users").addListenerForSingleValueEvent(
             object : ValueEventListener {

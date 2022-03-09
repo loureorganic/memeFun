@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.register.repository
 
 import android.content.SharedPreferences
+import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.example.bookappkotlin.register.model.User
@@ -24,6 +25,7 @@ class UserRegisterRepository(
 
     private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
     private val databaseGeneralHelper = DatabaseGeneralHelper()
+    private val applicationConstants = ApplicationConstants()
 
     override fun createUserAccount(user: User, response: RegisterResponse) {
         databaseAuthenticationHelper.databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
@@ -40,7 +42,7 @@ class UserRegisterRepository(
                 hashMap["userType"] = "user"
                 hashMap["timestamp"] = timestamp
 
-                val ref = databaseGeneralHelper.liveDatabase().getReference("Users")
+                val ref = databaseGeneralHelper.liveDatabase().getReference(applicationConstants.FIREBASE_USERS)
                 ref.child(uid!!).setValue(hashMap)
                     .addOnSuccessListener {
                     preferences.edit().putBoolean(registerKey, true).apply()

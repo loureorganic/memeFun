@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.splash.repository
 
 import android.content.SharedPreferences
+import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.google.firebase.database.DataSnapshot
@@ -25,13 +26,14 @@ class SplashRepository (
 
         val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         val databaseGeneralHelper = DatabaseGeneralHelper()
+        val applicationConstants = ApplicationConstants()
 
         val firebaseUser = databaseAuthenticationHelper.databaseAuthentication().currentUser
         if (firebaseUser == null) {
             preferences.edit().putBoolean(splashKey, false).apply()
             response(false)
         } else {
-            val ref = databaseGeneralHelper.liveDatabase().getReference("Users")
+            val ref = databaseGeneralHelper.liveDatabase().getReference(applicationConstants.FIREBASE_USERS)
                 ref.child(firebaseUser.uid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
