@@ -12,7 +12,7 @@ val homeRepositoryModule = module {
         UserHomeRepository()
     }
 
-    factory<HomeServices>{
+    single<HomeServices>{
         UserHomeServices()
     }
 }

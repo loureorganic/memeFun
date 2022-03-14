@@ -12,7 +12,7 @@ val registerRepositoryModule = module {
         UserRegisterRepository(preferences = get())
     }
 
-    factory<RegisterService> {
+    single<RegisterService> {
         UserRegisterServices(repository = get())
     }
 }

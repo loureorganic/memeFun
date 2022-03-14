@@ -12,7 +12,7 @@ val splashRepositoryModule = module {
         SplashRepository(preferences = get())
     }
 
-    factory<SplashService>{
+    single<SplashService>{
         SplashServices(get())
     }
 }

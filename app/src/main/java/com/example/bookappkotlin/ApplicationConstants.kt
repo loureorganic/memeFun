@@ -1,6 +1,6 @@
 package com.example.bookappkotlin
 
-class ApplicationConstants {
+object ApplicationConstants {
 
-    val FIREBASE_USERS = "Users"
+    const val FIREBASE_USERS = "Users"
 }

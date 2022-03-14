@@ -12,7 +12,7 @@ val loginRepositoryModule = module {
         UserLoginRepository(preferences = get())
     }
 
-    factory<LoginService>{
+    single<LoginService>{
         UserLoginServices(get())
     }
 }

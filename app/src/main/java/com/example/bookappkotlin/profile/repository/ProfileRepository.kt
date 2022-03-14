@@ -17,10 +17,9 @@ class ProfileRepository(
     private lateinit var database: DatabaseReference
 
     private val databaseGeneralHelper = DatabaseGeneralHelper()
-    private val applicationConstants = ApplicationConstants()
 
     override fun userData() {
-        database =  databaseGeneralHelper.liveDatabase().getReference(applicationConstants.FIREBASE_USERS)
+        database =  databaseGeneralHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.database.reference.child("Users").addListenerForSingleValueEvent(
             object : ValueEventListener {
