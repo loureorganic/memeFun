@@ -2,6 +2,7 @@ package com.example.bookappkotlin.splash.repository
 
 import android.content.SharedPreferences
 import com.example.bookappkotlin.ApplicationConstants
+import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.google.firebase.database.DataSnapshot
@@ -21,10 +22,11 @@ class SplashRepository (
 ): RepositorySplash, KoinComponent {
 
     private val splashKey = "splash"
+    lateinit var databaseAuthenticationHelper : AuthenticationHelper
 
     override fun checkUser(response: SplashResponse) {
 
-        val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
+        databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         val databaseGeneralHelper = DatabaseGeneralHelper()
 
         val firebaseUser = databaseAuthenticationHelper.databaseAuthentication().currentUser
