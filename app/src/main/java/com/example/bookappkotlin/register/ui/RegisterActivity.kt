@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.bookappkotlin.database.UserData
+import com.example.bookappkotlin.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityRegisterBinding
 import com.example.bookappkotlin.home.ui.HomeActivity
 import com.example.bookappkotlin.register.model.User
@@ -16,14 +19,16 @@ import org.koin.core.parameter.parametersOf
 
 class RegisterActivity : AppCompatActivity() {
 
+    private lateinit var ViewModelUser : UserViewModel
+
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
 
-    private val userRepository by inject<RegisterRepository>(){
+    private val userRepository by inject<RegisterRepository>() {
         parametersOf(getPreferences(MODE_PRIVATE))
     }
 
-    private val userService by inject<RegisterService>(){
+    private val userService by inject<RegisterService>() {
         parametersOf(userRepository)
     }
 
@@ -36,10 +41,14 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
 
+        ViewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.registerBtn.setOnClickListener {
             validateData()
         }
+
+
+
     }
 
     private fun validateData() {
@@ -61,9 +70,11 @@ class RegisterActivity : AppCompatActivity() {
         } else if (user.password != user.confirmPassword) {
             Toast.makeText(this, "Password doesn't match...", Toast.LENGTH_SHORT).show()
         } else {
-            progressDialog.setMessage("Creating Account...");
-            progressDialog.show();
-           userService.createUserAccount(user, this::redirectUserDashBoard);
+            progressDialog.setMessage("Creating Account...")
+            progressDialog.show()
+            userService.createUserAccount(user, this::redirectUserDashBoard)
+            val userData = UserData(id = 0, name = user.name, email =  user.email, password = user.password, isLogged = true)
+           ViewModelUser.addUser(userData)
         }
     }
 
