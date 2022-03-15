@@ -1,14 +1,17 @@
 package com.example.bookappkotlin.splash.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 typealias SplashResponse = (success: Boolean) -> Unit
 
@@ -20,6 +23,7 @@ interface RepositorySplash {
 class SplashRepository (
     private val preferences: SharedPreferences,
 ): RepositorySplash, KoinComponent {
+
 
     private val splashKey = "splash"
     lateinit var databaseAuthenticationHelper : AuthenticationHelper
@@ -34,6 +38,7 @@ class SplashRepository (
             preferences.edit().putBoolean(splashKey, false).apply()
             response(false)
         } else {
+            val firebaseUser = databaseAuthenticationHelper.databaseAuthentication().currentUser!!
             val ref = databaseGeneralHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
                 ref.child(firebaseUser.uid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {

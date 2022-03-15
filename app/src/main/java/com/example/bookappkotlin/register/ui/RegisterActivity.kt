@@ -19,6 +19,7 @@ import org.koin.core.parameter.parametersOf
 
 class RegisterActivity : AppCompatActivity() {
 
+
     private lateinit var viewModelUser : UserViewModel
 
     private lateinit var binding: ActivityRegisterBinding
@@ -79,6 +80,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun redirectUserDashBoard(accepted: Boolean) {
+
+
         progressDialog.setMessage("Saving user info...")
         if (accepted) {
             Toast.makeText(this, "Account created...", Toast.LENGTH_SHORT).show()

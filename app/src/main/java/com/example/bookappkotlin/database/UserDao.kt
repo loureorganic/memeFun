@@ -11,9 +11,11 @@ interface UserDao {
 
     @Update
     suspend fun updateLoggedUserState(currentState: Boolean){
-
     }
 
+    @Delete
+    suspend fun deleteUserData(){
+    }
 
     @Query("SELECT * FROM user_data ORDER BY id ASC")
     fun readAllData(): LiveData<List<UserData>>

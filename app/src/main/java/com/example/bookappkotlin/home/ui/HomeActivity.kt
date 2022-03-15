@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
+import com.example.bookappkotlin.helpper.AuthenticationHelper
+import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.home.services.HomeServices
 import com.example.bookappkotlin.home.utils.PhotoAdapter
 import com.example.bookappkotlin.login.ui.LoginActivity
 import com.example.bookappkotlin.profile.ui.ProfileActivity
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,8 +29,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
 
     private val recyclerView: RecyclerView by lazy {
-      findViewById(R.id.recyclerView)
-}
+        findViewById(R.id.recyclerView)
+    }
+
+    lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
     private val photoAdapter by inject<PhotoAdapter> {
         parametersOf(applicationContext)
@@ -47,6 +52,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
         binding.drawerLayoutOne.addDrawerListener(toggle)
         toggle.syncState()
@@ -63,9 +70,14 @@ class HomeActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.item_1 -> startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
-                R.id.item_2 -> Toast.makeText(applicationContext,
-                    "Clicked item 2", Toast.LENGTH_LONG).show()
-                R.id.item_3 -> startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
+                R.id.item_2 -> Toast.makeText(
+                    applicationContext,
+                    "Clicked item 2", Toast.LENGTH_LONG
+                ).show()
+                R.id.item_3 -> {
+                    databaseAuthenticationHelper.databaseAuthentication().signOut()
+                    startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
+                }
             }
             true
         }

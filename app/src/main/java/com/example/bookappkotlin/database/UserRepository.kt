@@ -13,4 +13,8 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun updateLoggedUserState(state: Boolean){
         userDao.updateLoggedUserState(currentState = state)
     }
+
+    suspend fun deleteUserData(){
+        userDao.deleteUserData()
+    }
 }
