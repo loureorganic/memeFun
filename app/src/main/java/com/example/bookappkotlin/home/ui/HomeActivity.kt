@@ -7,9 +7,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
+import com.example.bookappkotlin.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
@@ -27,6 +29,8 @@ import org.koin.core.parameter.parametersOf
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var toggle: ActionBarDrawerToggle
+
+    private lateinit var viewModelUser: UserViewModel
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
@@ -52,6 +56,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
 
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
@@ -62,7 +67,6 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.adapter = photoAdapter
 
         getMyData()
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navigationView.bringToFront()
@@ -76,6 +80,7 @@ class HomeActivity : AppCompatActivity() {
                 ).show()
                 R.id.item_3 -> {
                     databaseAuthenticationHelper.databaseAuthentication().signOut()
+                    viewModelUser.deleteAllUsersData()
                     startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
                 }
             }

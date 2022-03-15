@@ -13,6 +13,11 @@ interface UserDao {
     suspend fun updateLoggedUserState(currentState: Boolean){
     }
 
+    @Query("DELETE FROM user_data")
+    suspend fun deleteAllUsersData(){
+
+    }
+
     @Delete
     suspend fun deleteUserData(){
     }

@@ -35,4 +35,10 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             repository.deleteUserData()
         }
     }
+
+    fun deleteAllUsersData(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAllUsersData()
+        }
+    }
 }

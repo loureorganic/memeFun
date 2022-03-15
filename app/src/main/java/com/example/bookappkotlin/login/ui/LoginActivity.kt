@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.bookappkotlin.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
 import com.example.bookappkotlin.home.ui.HomeActivity
 import com.example.bookappkotlin.login.model.User
@@ -16,23 +18,21 @@ import org.koin.core.parameter.parametersOf
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var viewModelUser : UserViewModel
+
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var progressDialog: ProgressDialog
 
-    private val userRegisterRepository by inject<LoginService> {
-        parametersOf(getPreferences(MODE_PRIVATE))
-    }
-
-    private val userService by inject<LoginService>(){
-        parametersOf(userRegisterRepository)
-    }
+    private val userService by inject<LoginService>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")

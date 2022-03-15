@@ -9,10 +9,10 @@ import org.koin.dsl.module
 val registerRepositoryModule = module {
 
    single<RegisterRepository> {
-        UserRegisterRepository(preferences = get())
+        UserRegisterRepository()
     }
 
     single<RegisterService> {
-        UserRegisterServices(repository = get())
+        UserRegisterServices()
     }
 }

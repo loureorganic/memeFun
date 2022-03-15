@@ -11,12 +11,9 @@ typealias RegisterResponse = (success: Boolean) -> Unit
 
 interface RegisterRepository {
     fun createUserAccount(user: User, response: RegisterResponse)
-    fun isLogged(): Boolean
 }
 
-class UserRegisterRepository(
-    private val preferences: SharedPreferences,
-):RegisterRepository, KoinComponent {
+class UserRegisterRepository():RegisterRepository, KoinComponent {
 
     private val registerKey = "register"
 
@@ -41,20 +38,14 @@ class UserRegisterRepository(
                 val ref = databaseGeneralHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
                 ref.child(uid!!).setValue(hashMap)
                     .addOnSuccessListener {
-                    preferences.edit().putBoolean(registerKey, true).apply()
                     response(true)
                    }
                     .addOnFailureListener{
-                        preferences.edit().putBoolean(registerKey, true).apply()
                         response(true)
                     }
             }
             .addOnFailureListener{
                 response(false)
             }
-    }
-
-    override fun isLogged(): Boolean {
-        return preferences.getBoolean(registerKey, false)
     }
 }
