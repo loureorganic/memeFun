@@ -1,6 +1,5 @@
 package com.example.bookappkotlin.register.repository
 
-import android.content.SharedPreferences
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
@@ -14,8 +13,6 @@ interface RegisterRepository {
 }
 
 class UserRegisterRepository():RegisterRepository, KoinComponent {
-
-    private val registerKey = "register"
 
     private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
     private val databaseGeneralHelper = DatabaseGeneralHelper()

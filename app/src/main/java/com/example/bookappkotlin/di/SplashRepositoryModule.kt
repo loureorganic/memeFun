@@ -9,10 +9,10 @@ import org.koin.dsl.module
 
 val splashRepositoryModule = module {
     single<RepositorySplash>{
-        SplashRepository(preferences = get())
+        SplashRepository()
     }
 
     single<SplashService>{
-        SplashServices(get())
+        SplashServices()
     }
 }

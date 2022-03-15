@@ -20,9 +20,7 @@ import org.koin.core.parameter.parametersOf
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
-    private val splashRepository by inject<RepositorySplash>(){
-        parametersOf(getPreferences(MODE_PRIVATE))
-    }
+    private val splashRepository by inject<RepositorySplash>()
 
     private val splashService by inject<SplashService>(){
         parametersOf(splashRepository)
@@ -39,10 +37,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun redirectUserDashboard(accepted: Boolean) {
-
-
-        Log.i("TEST SHARED PREF", "PREFERENCE " + getPreferences(MODE_PRIVATE).getBoolean("Splash", false))
-        Log.i("TEXTO", "ACCEPTED $accepted")
         if (!accepted) {
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
