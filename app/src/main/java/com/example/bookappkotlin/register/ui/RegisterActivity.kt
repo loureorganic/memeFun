@@ -19,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var ViewModelUser : UserViewModel
+    private lateinit var viewModelUser : UserViewModel
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
@@ -41,7 +41,7 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
 
-        ViewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.registerBtn.setOnClickListener {
             validateData()
@@ -74,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
             progressDialog.show()
             userService.createUserAccount(user, this::redirectUserDashBoard)
             val userData = UserData(id = 0, name = user.name, email =  user.email, password = user.password, isLogged = true)
-           ViewModelUser.addUser(userData)
+            viewModelUser.addUser(userData)
         }
     }
 

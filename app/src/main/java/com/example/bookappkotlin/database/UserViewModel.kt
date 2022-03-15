@@ -23,4 +23,11 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             repository.addUser(user)
         }
     }
+
+    fun updateLoggedUserState(state: Boolean){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateLoggedUserState(state)
+        }
+    }
+
 }
