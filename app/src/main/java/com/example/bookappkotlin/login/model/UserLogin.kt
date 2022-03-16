@@ -1,6 +1,6 @@
 package com.example.bookappkotlin.login.model
 
-data class User(
+data class UserLogin(
     val email : String,
     val password : String,
 )

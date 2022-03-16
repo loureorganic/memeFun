@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
 import com.example.bookappkotlin.home.ui.HomeActivity
-import com.example.bookappkotlin.login.model.User
+import com.example.bookappkotlin.login.model.UserLogin
 import com.example.bookappkotlin.login.services.LoginService
 import com.example.bookappkotlin.register.ui.RegisterActivity
 import org.koin.android.ext.android.inject
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validateData() {
 
-        val user = User(
+        val user = UserLogin(
             email = binding.emailEt.text.toString().trim(),
             password = binding.passwordEt.text.toString().trim()
         )

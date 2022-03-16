@@ -11,7 +11,7 @@ import com.example.bookappkotlin.database.UserData
 import com.example.bookappkotlin.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityRegisterBinding
 import com.example.bookappkotlin.home.ui.HomeActivity
-import com.example.bookappkotlin.register.model.User
+import com.example.bookappkotlin.register.model.UserRegister
 import com.example.bookappkotlin.register.repository.RegisterRepository
 import com.example.bookappkotlin.register.services.RegisterService
 import org.koin.android.ext.android.inject
@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         parametersOf(userRepository)
     }
 
-    private lateinit var user: User
+    private lateinit var user: UserRegister
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun validateData() {
-        user = User(
+        user = UserRegister(
             name = binding.nameEt.text.toString().trim(),
             email = binding.emailEt.text.toString().trim(),
             password = binding.passwordEt.text.toString().trim(),
