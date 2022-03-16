@@ -6,7 +6,7 @@ import com.example.bookappkotlin.register.services.RegisterService
 import com.example.bookappkotlin.register.services.UserRegisterServices
 import org.koin.dsl.module
 
-val registerRepositoryModule = module {
+val registerModule = module {
 
    single<RegisterRepository> {
         UserRegisterRepository()

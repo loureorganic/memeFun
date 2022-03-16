@@ -7,7 +7,7 @@ import com.example.bookappkotlin.splash.services.SplashServices
 import org.koin.dsl.module
 
 
-val splashRepositoryModule = module {
+val splashModule = module {
     single<RepositorySplash>{
         SplashRepository()
     }

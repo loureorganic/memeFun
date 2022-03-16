@@ -3,7 +3,6 @@ package com.example.bookappkotlin.splash.repository
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
-import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -22,14 +21,13 @@ class SplashRepository (): RepositorySplash, KoinComponent {
     override fun checkUser(response: SplashResponse) {
 
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-        val databaseGeneralHelper = DatabaseGeneralHelper()
 
         val firebaseUser = databaseAuthenticationHelper.databaseAuthentication().currentUser
         if (firebaseUser == null) {
             response(false)
         } else {
             val firebaseUser = databaseAuthenticationHelper.databaseAuthentication().currentUser!!
-            val ref = databaseGeneralHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
+            val ref = databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
                 ref.child(firebaseUser.uid)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {

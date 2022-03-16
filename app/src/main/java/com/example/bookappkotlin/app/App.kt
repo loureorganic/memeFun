@@ -24,11 +24,11 @@ class App : Application() {
 
             modules(
                 listOf(
-                    homeRepositoryModule,
+                    homeModule,
                     apiModule,
-                    registerRepositoryModule,
-                    loginRepositoryModule,
-                    splashRepositoryModule,
+                    registerModule,
+                    loginModule,
+                    splashModule,
                     glideModule,
                     photoAdapterModule,
                     firebaseAuthModule,

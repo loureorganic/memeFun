@@ -7,7 +7,7 @@ import com.example.bookappkotlin.login.services.UserLoginServices
 import org.koin.dsl.module
 
 
-val loginRepositoryModule = module {
+val loginModule = module {
     single<LoginRepository>{
         UserLoginRepository()
     }

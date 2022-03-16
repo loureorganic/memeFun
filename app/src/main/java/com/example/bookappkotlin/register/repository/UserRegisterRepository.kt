@@ -2,7 +2,6 @@ package com.example.bookappkotlin.register.repository
 
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
-import com.example.bookappkotlin.helpper.DatabaseGeneralHelper
 import com.example.bookappkotlin.register.model.User
 import org.koin.core.component.KoinComponent
 
@@ -15,7 +14,6 @@ interface RegisterRepository {
 class UserRegisterRepository():RegisterRepository, KoinComponent {
 
     private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-    private val databaseGeneralHelper = DatabaseGeneralHelper()
 
     override fun createUserAccount(user: User, response: RegisterResponse) {
         databaseAuthenticationHelper.databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
@@ -32,7 +30,7 @@ class UserRegisterRepository():RegisterRepository, KoinComponent {
                 hashMap["userType"] = "user"
                 hashMap["timestamp"] = timestamp
 
-                val ref = databaseGeneralHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
+                val ref = databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
                 ref.child(uid!!).setValue(hashMap)
                     .addOnSuccessListener {
                     response(true)

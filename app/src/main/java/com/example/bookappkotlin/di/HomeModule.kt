@@ -6,7 +6,7 @@ import com.example.bookappkotlin.home.services.HomeServices
 import com.example.bookappkotlin.home.services.UserHomeServices
 import org.koin.dsl.module
 
-val homeRepositoryModule = module {
+val homeModule = module {
 
     factory<HomeRepository>{
         UserHomeRepository()
