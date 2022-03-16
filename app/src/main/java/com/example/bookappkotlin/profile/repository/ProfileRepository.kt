@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.profile.repository
 
 import com.example.bookappkotlin.ApplicationConstants
+import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.google.firebase.database.*
 import org.koin.core.component.KoinComponent
@@ -12,12 +13,12 @@ interface RepositoryProfile {
 class ProfileRepository(
 ): RepositoryProfile, KoinComponent {
 
-    //depedency
     private lateinit var database: DatabaseReference
 
-    private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
+    private lateinit var databaseAuthenticationHelper : AuthenticationHelper
 
     override fun userData() {
+        databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         database =  databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.database.reference.child("Users").addListenerForSingleValueEvent(
