@@ -20,13 +20,15 @@ class ProfileRepository(
 
     private lateinit var databaseAuthenticationHelper : AuthenticationHelper
 
-    val _snapshotLiveDataMutable = MutableLiveData<DataSnapshot>()
-    override val snapshotLiveDataMutable: MutableLiveData<DataSnapshot> = _snapshotLiveDataMutable
+    private val liveDataMutable = MutableLiveData<DataSnapshot>()
+    override val snapshotLiveDataMutable: MutableLiveData<DataSnapshot> = liveDataMutable
 
 
     override fun userData() {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-        database =  databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
+
+
+        /*database =  databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.database.reference.child("Users").addListenerForSingleValueEvent(
             object : ValueEventListener {
@@ -42,6 +44,6 @@ class ProfileRepository(
             if(it.exists()){
                 snapshotLiveDataMutable.postValue(it)
             }
-        }
+        }*/
     }
 }

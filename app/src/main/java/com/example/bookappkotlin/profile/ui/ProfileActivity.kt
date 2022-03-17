@@ -25,8 +25,6 @@ class ProfileActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         initObservables()
 
-
-
     }
 
     private fun initObservables() {
@@ -38,6 +36,7 @@ class ProfileActivity : AppCompatActivity() {
                 email = it.child(uidUser).child("email").value as String,
                 password = it.child(uidUser).child("password").value as String,
                 )
+
             binding.username.text = userProfileData.name
         }
     }
