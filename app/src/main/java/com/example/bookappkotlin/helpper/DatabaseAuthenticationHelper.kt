@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.login.model.UserLogin
 import com.example.bookappkotlin.register.model.UserRegister
-import com.example.bookappkotlin.splash.repository.SplashResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -19,7 +20,7 @@ interface AuthenticationHelper {
     val snapshotLiveDataMutable: MutableLiveData<DataSnapshot>
     fun databaseAuthentication(): FirebaseAuth
     fun liveDatabase(): FirebaseDatabase
-    fun checkUser(response: SplashResponse)
+    fun checkUser(): Observable<Boolean>
     fun createUserAccount(user: UserRegister): Observable<Boolean>
     fun loginUser(user: UserLogin): Observable<Boolean>
     fun userData()
@@ -44,7 +45,28 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
         return firebaseDatabase
     }
 
-    override fun checkUser(response: SplashResponse) {
+    override fun checkUser() = Observable.create<Boolean> { emmiter ->
+        val firebaseUser = databaseAuthentication().currentUser
+        if (firebaseUser == null) {
+            emmiter.onNext(false)
+            Log.i("FIREBASE ERROR", "Firebase is null")
+        } else {
+
+            val ref = liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
+            ref.child(firebaseUser.uid)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userType = snapshot.child("userType").value
+                        if(userType == "user"){
+                            emmiter.onNext(true)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.i("FIREBASE ERROR", "Error $error")
+                    }
+                })
+        }
     }
 
     override fun createUserAccount(user: UserRegister) =
