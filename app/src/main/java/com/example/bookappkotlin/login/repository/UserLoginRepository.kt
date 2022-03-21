@@ -17,7 +17,7 @@ class UserLoginRepository(
 
     override fun loginUser(userLogin: UserLogin) : Observable<Boolean> {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-       return databaseAuthenticationHelper.loginUser(user = userLogin)
+        return databaseAuthenticationHelper.loginUser(user = userLogin)
     }
 
 }

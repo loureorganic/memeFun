@@ -17,5 +17,4 @@ class UserLoginServices() : LoginService, KoinComponent {
     override fun loginUser(userLogin: UserLogin) : Observable<Boolean> {
         return repository.loginUser(userLogin)
     }
-
 }

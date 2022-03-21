@@ -16,8 +16,6 @@ interface RepositoryProfile {
 class ProfileRepository(
 ): RepositoryProfile, KoinComponent {
 
-    private lateinit var database: DatabaseReference
-
     private lateinit var databaseAuthenticationHelper : AuthenticationHelper
 
     private val liveDataMutable = MutableLiveData<DataSnapshot>()
@@ -27,23 +25,5 @@ class ProfileRepository(
     override fun userData() {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
 
-
-        /*database =  databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
-
-        database.database.reference.child("Users").addListenerForSingleValueEvent(
-            object : ValueEventListener {
-
-                override fun onDataChange(snapshot: DataSnapshot) {
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                }
-            }
-        )
-        database.get().addOnSuccessListener {
-            if(it.exists()){
-                snapshotLiveDataMutable.postValue(it)
-            }
-        }*/
     }
 }

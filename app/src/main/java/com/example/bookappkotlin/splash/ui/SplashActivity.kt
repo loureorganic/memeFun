@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             splashService.checkUser().subscribe {
                 response -> redirectUserDashboard(accepted = response)
             }

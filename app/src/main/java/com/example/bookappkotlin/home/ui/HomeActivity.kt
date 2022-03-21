@@ -19,7 +19,6 @@ import com.example.bookappkotlin.home.services.HomeServices
 import com.example.bookappkotlin.home.utils.PhotoAdapter
 import com.example.bookappkotlin.login.ui.LoginActivity
 import com.example.bookappkotlin.profile.ui.ProfileActivity
-import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -96,7 +95,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    // can be upgraded
     private fun getMyData() {
         service
             .getAllMemes()
