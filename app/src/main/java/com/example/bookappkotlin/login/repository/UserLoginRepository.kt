@@ -3,12 +3,11 @@ package com.example.bookappkotlin.login.repository
 import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.login.model.UserLogin
+import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 
-typealias LoginResponse = (success: Boolean) -> Unit
-
 interface LoginRepository {
-    fun loginUser(userLogin: UserLogin, response: LoginResponse)
+    fun loginUser(userLogin: UserLogin) : Observable<Boolean>
 }
 
 class UserLoginRepository(
@@ -16,17 +15,9 @@ class UserLoginRepository(
 
     lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
-    override fun loginUser(userLogin: UserLogin, response: LoginResponse) {
-
+    override fun loginUser(userLogin: UserLogin) : Observable<Boolean> {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-
-        databaseAuthenticationHelper.databaseAuthentication().signInWithEmailAndPassword(userLogin.email,userLogin.password)
-            .addOnSuccessListener {
-                response(true)
-            }
-            .addOnFailureListener{
-                response(false)
-            }
+       return databaseAuthenticationHelper.loginUser(user = userLogin)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.bookappkotlin.login.ui
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -46,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun validateData() {
 
         val user = UserLogin(
@@ -59,8 +61,9 @@ class LoginActivity : AppCompatActivity() {
         else if(user.password.isEmpty()){
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
         }else{
-            //dependency
-            userService.loginUser(user, this::redirectDashBoardUser)
+            userService.loginUser(userLogin = user).subscribe{ response ->
+                redirectDashBoardUser(logged = response)
+            }
         }
     }
 

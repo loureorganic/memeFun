@@ -1,11 +1,9 @@
 package com.example.bookappkotlin.helpper
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.login.model.UserLogin
-import com.example.bookappkotlin.login.repository.LoginResponse
 import com.example.bookappkotlin.register.model.UserRegister
 import com.example.bookappkotlin.splash.repository.SplashResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +21,7 @@ interface AuthenticationHelper {
     fun liveDatabase(): FirebaseDatabase
     fun checkUser(response: SplashResponse)
     fun createUserAccount(user: UserRegister): Observable<Boolean>
-    fun loginUser(user: UserLogin, response: LoginResponse)
+    fun loginUser(user: UserLogin): Observable<Boolean>
     fun userData()
 }
 
@@ -32,7 +30,7 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
     private val firebaseAuth by inject<FirebaseAuth>()
     private val firebaseDatabase by inject<FirebaseDatabase>()
 
-    val booleanLiveDataMutable = MutableLiveData<Boolean>()
+    private val booleanLiveDataMutable = MutableLiveData<Boolean>()
     override val booleanLiveData: MutableLiveData<Boolean> = booleanLiveDataMutable
 
     private val liveDataMutable = MutableLiveData<DataSnapshot>()
@@ -81,7 +79,14 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
                 }
         }
 
-    override fun loginUser(user: UserLogin, response: LoginResponse) {
+    override fun loginUser(user: UserLogin) = Observable.create<Boolean> { emmiter ->
+        databaseAuthentication().signInWithEmailAndPassword(user.email,user.password)
+            .addOnSuccessListener {
+                emmiter.onNext(true)
+            }
+            .addOnFailureListener{
+                emmiter.onNext(false)
+            }
     }
 
     override fun userData() {
