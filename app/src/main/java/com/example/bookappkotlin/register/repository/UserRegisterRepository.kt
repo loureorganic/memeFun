@@ -1,47 +1,19 @@
 package com.example.bookappkotlin.register.repository
 
-import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.register.model.UserRegister
+import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 
-typealias RegisterResponse = (success: Boolean) -> Unit
-
 interface RegisterRepository {
-    fun createUserAccount(user: UserRegister, response: RegisterResponse)
+    fun createUserAccount(user: UserRegister) : Observable<Boolean>
 }
 
-class UserRegisterRepository():RegisterRepository, KoinComponent {
+class UserRegisterRepository :RegisterRepository, KoinComponent {
 
     private val databaseAuthenticationHelper = DatabaseAuthenticationHelper()
 
-    override fun createUserAccount(user: UserRegister, response: RegisterResponse) {
-        databaseAuthenticationHelper.databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
-            .addOnSuccessListener {
-                val timestamp = System.currentTimeMillis()
-
-                val uid = databaseAuthenticationHelper.databaseAuthentication().uid
-
-                val hashMap: HashMap<String, Any?> = HashMap()
-                hashMap["uid"] = uid
-                hashMap["email"] = user.email
-                hashMap["name"] = user.name
-                hashMap["profileImage"] = ""
-                hashMap["userType"] = "user"
-                hashMap["timestamp"] = timestamp
-                hashMap["password"] = user.password
-
-                val ref = databaseAuthenticationHelper.liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
-                ref.child(uid!!).setValue(hashMap)
-                    .addOnSuccessListener {
-                    response(true)
-                   }
-                    .addOnFailureListener{
-                        response(true)
-                    }
-            }
-            .addOnFailureListener{
-                response(false)
-            }
+    override fun createUserAccount(user: UserRegister): Observable<Boolean> {
+      return  databaseAuthenticationHelper.createUserAccount(user = user)
     }
 }

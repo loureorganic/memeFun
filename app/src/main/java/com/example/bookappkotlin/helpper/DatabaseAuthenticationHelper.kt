@@ -17,21 +17,20 @@ import org.koin.core.component.inject
 import kotlin.collections.HashMap
 
 interface AuthenticationHelper {
-    val booleanLiveData : MutableLiveData<Boolean>
+    val booleanLiveData: MutableLiveData<Boolean>
     val snapshotLiveDataMutable: MutableLiveData<DataSnapshot>
     fun databaseAuthentication(): FirebaseAuth
-    fun liveDatabase() : FirebaseDatabase
+    fun liveDatabase(): FirebaseDatabase
     fun checkUser(response: SplashResponse)
-    fun createUserAccount(user: UserRegister) : Observable<Boolean>
+    fun createUserAccount(user: UserRegister): Observable<Boolean>
     fun loginUser(user: UserLogin, response: LoginResponse)
     fun userData()
 }
 
-class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent{
+class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
 
     private val firebaseAuth by inject<FirebaseAuth>()
     private val firebaseDatabase by inject<FirebaseDatabase>()
-    lateinit var  mostPopular: Observable<Boolean>
 
     val booleanLiveDataMutable = MutableLiveData<Boolean>()
     override val booleanLiveData: MutableLiveData<Boolean> = booleanLiveDataMutable
@@ -39,62 +38,60 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent{
     private val liveDataMutable = MutableLiveData<DataSnapshot>()
     override val snapshotLiveDataMutable: MutableLiveData<DataSnapshot> = liveDataMutable
 
-   // val mostPopular: Observable<String> = Observable.just("Here")
-
-
-
-
     override fun databaseAuthentication(): FirebaseAuth {
         return firebaseAuth
     }
 
-    override fun liveDatabase() : FirebaseDatabase {
+    override fun liveDatabase(): FirebaseDatabase {
         return firebaseDatabase
     }
 
     override fun checkUser(response: SplashResponse) {
     }
 
-    override fun createUserAccount(user: UserRegister) = Observable.create<Boolean>{
-        databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
-            .addOnSuccessListener {
+    override fun createUserAccount(user: UserRegister) =
+        Observable.create<Boolean> { emmiter ->
+            databaseAuthentication().createUserWithEmailAndPassword(user.email, user.password)
+                .addOnSuccessListener {
+                    val timestamp = System.currentTimeMillis()
 
-                val timestamp = System.currentTimeMillis()
+                    val uid = databaseAuthentication().uid
 
-                val uid = databaseAuthentication().uid
+                    val hashMap: HashMap<String, Any?> = HashMap()
+                    hashMap["uid"] = uid
+                    hashMap["email"] = user.email
+                    hashMap["name"] = user.name
+                    hashMap["password"] = user.password
+                    hashMap["profileImage"] = ""
+                    hashMap["userType"] = "user"
+                    hashMap["timestamp"] = timestamp
 
-                val hashMap: HashMap<String, Any?> = HashMap()
-                hashMap["uid"] = uid
-                hashMap["email"] = user.email
-                hashMap["name"] = user.name
-                hashMap["password"] = user.password
-                hashMap["profileImage"] = ""
-                hashMap["userType"] = "user"
-                hashMap["timestamp"] = timestamp
-
-                val ref = liveDatabase().getReference(
-                    ApplicationConstants.FIREBASE_USERS)
-                ref.child(uid!!).setValue(hashMap)
-            }
-            .addOnFailureListener{
-            }
-    }
-
+                    val ref = liveDatabase().getReference(
+                        ApplicationConstants.FIREBASE_USERS
+                    )
+                    ref.child(uid!!).setValue(hashMap)
+                        .addOnSuccessListener {
+                            emmiter.onNext(true)
+                        }
+                        .addOnFailureListener {
+                            emmiter.onNext(false)
+                        }
+                }.addOnFailureListener {
+                    Log.i("FIREBASE ERROR", "Error $it")
+                }
+        }
 
     override fun loginUser(user: UserLogin, response: LoginResponse) {
-
     }
 
-    @SuppressLint("CheckResult")
     override fun userData() {
 
-        val database =  liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
+        val database = liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.get().addOnSuccessListener {
-            if(it.exists()){
+            if (it.exists()) {
                 snapshotLiveDataMutable.postValue(it)
             }
         }
     }
-
 }
