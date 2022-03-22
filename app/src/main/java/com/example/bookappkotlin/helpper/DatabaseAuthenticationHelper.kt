@@ -1,9 +1,9 @@
 package com.example.bookappkotlin.helpper
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.login.model.UserLogin
+import com.example.bookappkotlin.profile.model.UserData
 import com.example.bookappkotlin.register.model.UserRegister
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -16,26 +16,18 @@ import org.koin.core.component.inject
 import kotlin.collections.HashMap
 
 interface AuthenticationHelper {
-    val booleanLiveData: MutableLiveData<Boolean>
-    val snapshotLiveDataMutable: MutableLiveData<DataSnapshot>
     fun databaseAuthentication(): FirebaseAuth
     fun liveDatabase(): FirebaseDatabase
     fun checkUser(): Observable<Boolean>
     fun createUserAccount(user: UserRegister): Observable<Boolean>
     fun loginUser(user: UserLogin): Observable<Boolean>
-    fun userData()
+    fun userData():  Observable<UserData>
 }
 
 class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
 
     private val firebaseAuth by inject<FirebaseAuth>()
     private val firebaseDatabase by inject<FirebaseDatabase>()
-
-    private val booleanLiveDataMutable = MutableLiveData<Boolean>()
-    override val booleanLiveData: MutableLiveData<Boolean> = booleanLiveDataMutable
-
-    private val liveDataMutable = MutableLiveData<DataSnapshot>()
-    override val snapshotLiveDataMutable: MutableLiveData<DataSnapshot> = liveDataMutable
 
     override fun databaseAuthentication(): FirebaseAuth {
         return firebaseAuth
@@ -111,14 +103,23 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
             }
     }
 
-    override fun userData() {
+    override fun userData() = Observable.create<UserData> { emmiter ->
 
         val database = liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.get().addOnSuccessListener {
             if (it.exists()) {
-                snapshotLiveDataMutable.postValue(it)
+
+                val uid = databaseAuthentication().currentUser?.uid!!
+                val userProfileData = UserData(
+                    name = it.child(uid).child("name").value  as String,
+                    email = it.child(uid).child("email").value as String,
+                    password = it.child(uid).child("password").value as String,
+                )
+
+                emmiter.onNext(userProfileData)
             }
         }
+
     }
 }

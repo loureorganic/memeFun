@@ -1,29 +1,26 @@
 package com.example.bookappkotlin.profile.repository
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
-import com.example.bookappkotlin.ApplicationConstants
 import com.example.bookappkotlin.helpper.AuthenticationHelper
 import com.example.bookappkotlin.helpper.DatabaseAuthenticationHelper
+import com.example.bookappkotlin.profile.model.UserData
 import com.google.firebase.database.*
+import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 
 interface RepositoryProfile {
-    val snapshotLiveDataMutable: MutableLiveData<DataSnapshot>
-    fun userData()
+    fun userData(): Observable<UserData>
 }
 
 class ProfileRepository(
-): RepositoryProfile, KoinComponent {
+) : RepositoryProfile, KoinComponent {
 
-    private lateinit var databaseAuthenticationHelper : AuthenticationHelper
+    private lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
-    private val liveDataMutable = MutableLiveData<DataSnapshot>()
-    override val snapshotLiveDataMutable: MutableLiveData<DataSnapshot> = liveDataMutable
-
-
-    override fun userData() {
+    @SuppressLint("CheckResult")
+    override fun userData(): Observable<UserData> {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
-
+        return databaseAuthenticationHelper.userData()
     }
 }

@@ -32,7 +32,8 @@ class App : Application() {
                     glideModule,
                     photoAdapterModule,
                     firebaseAuthModule,
-                    firebaseDatabaseModule
+                    firebaseDatabaseModule,
+                    profileModule
                 )
             )
         }
