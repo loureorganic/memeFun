@@ -1,6 +1,6 @@
 package com.example.bookappkotlin.di
 
-import com.example.bookappkotlin.home.utils.PhotoAdapter
+import com.example.bookappkotlin.screens.home.adapters.PhotoAdapter
 import org.koin.dsl.module
 
 val photoAdapterModule = module {

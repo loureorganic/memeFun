@@ -1,7 +1,7 @@
 package com.example.bookappkotlin.di
 
-import com.example.bookappkotlin.helpper.RetrofitHelper
-import com.example.bookappkotlin.network.api.MemeApi
+import com.example.bookappkotlin.repositories.helpper.RetrofitHelper
+import com.example.bookappkotlin.repositories.network.api.MemeApi
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

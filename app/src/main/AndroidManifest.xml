@@ -16,21 +16,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".profile.ui.ProfileActivity"
+            android:name="com.example.bookappkotlin.screens.profile.ui.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".home.ui.HomeActivity"
+            android:name="com.example.bookappkotlin.screens.home.ui.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".login.ui.LoginActivity"
+            android:name="com.example.bookappkotlin.screens.login.ui.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".register.ui.RegisterActivity"
+            android:name="com.example.bookappkotlin.screens.register.ui.RegisterActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".splash.ui.SplashActivity"
+            android:name="com.example.bookappkotlin.screens.splash.ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
