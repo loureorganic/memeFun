@@ -27,5 +27,4 @@ class UserHomeRepository : HomeRepository, KoinComponent {
         databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         databaseAuthenticationHelper.signOutUser()
     }
-
 }

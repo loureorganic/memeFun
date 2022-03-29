@@ -25,19 +25,22 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
 
-    private val userService by inject<RegisterService>()
-
     private lateinit var user: UserRegister
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
+    }
 
-        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
-        viewModelRegister = ViewModelProvider(this).get(RegisterViewModel::class.java)
+    override fun onStart() {
+        super.onStart()
+
+        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
+        viewModelRegister = ViewModelProvider(this)[RegisterViewModel::class.java]
 
         binding.registerBtn.setOnClickListener {
             validateData()
