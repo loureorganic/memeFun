@@ -3,6 +3,7 @@ package com.example.bookappkotlin.screens.home.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,6 +18,7 @@ import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
 import com.example.bookappkotlin.repositories.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.screens.home.services.HomeServices
 import com.example.bookappkotlin.screens.home.adapters.PhotoAdapter
+import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
 import com.example.bookappkotlin.screens.profile.ui.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,17 +33,15 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var viewModelUser: UserViewModel
 
+    private lateinit var viewModelHome : HomeViewModel
+
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
     }
 
-    lateinit var databaseAuthenticationHelper: AuthenticationHelper
-
     private val photoAdapter by inject<PhotoAdapter> {
         parametersOf(applicationContext)
     }
-
-    private val service by inject<HomeServices>()
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -50,14 +50,15 @@ class HomeActivity : AppCompatActivity() {
         CompositeDisposable()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
+        viewModelHome = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        databaseAuthenticationHelper = DatabaseAuthenticationHelper()
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
         binding.drawerLayoutOne.addDrawerListener(toggle)
         toggle.syncState()
@@ -70,7 +71,6 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navigationView.bringToFront()
 
-
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.item_1 -> startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
@@ -79,7 +79,7 @@ class HomeActivity : AppCompatActivity() {
                     "Clicked item 2", Toast.LENGTH_LONG
                 ).show()
                 R.id.item_3 -> {
-                    service.signOutUser()
+                    viewModelHome.signOutUser()
                     viewModelUser.deleteAllUsersData()
                     startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
                 }
@@ -88,6 +88,19 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+        viewModelHome.getAllMemes()
+
+        viewModelHome.listMemeResponseLiveData.observe(this){ memeList ->
+
+            photoAdapter.setDataList(memeList)
+            photoAdapter.notifyDataSetChanged()
+        }
+
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
@@ -97,7 +110,7 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getMyData() {
-        service
+        /*service
             .getAllMemes()
             .subscribeOn(Schedulers.io())
             .filter { it.data?.meme != null }
@@ -110,7 +123,9 @@ class HomeActivity : AppCompatActivity() {
                     photoAdapter.setDataList(memeList)
                     photoAdapter.notifyDataSetChanged()
                 }
-            }.run { composite.add(this) }
+            }.run { composite.add(this) }*/
+
+
     }
 
     override fun onDestroy() {
