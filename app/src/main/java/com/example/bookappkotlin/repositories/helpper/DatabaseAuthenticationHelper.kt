@@ -19,7 +19,7 @@ interface AuthenticationHelper {
     fun checkUser(): Observable<Boolean>
     fun createUserAccount(user: UserRegister): Observable<Boolean>
     fun loginUser(user: UserLogin): Observable<Boolean>
-    fun userData():  Observable<UserData>
+    fun userData(): Observable<DataSnapshot>
     fun signOutUser()
 }
 
@@ -28,11 +28,11 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
     private val firebaseAuth by inject<FirebaseAuth>()
     private val firebaseDatabase by inject<FirebaseDatabase>()
 
-   private fun databaseAuthentication(): FirebaseAuth {
+    private fun databaseAuthentication(): FirebaseAuth {
         return firebaseAuth
     }
 
-   private fun liveDatabase(): FirebaseDatabase {
+    private fun liveDatabase(): FirebaseDatabase {
         return firebaseDatabase
     }
 
@@ -48,7 +48,7 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val userType = snapshot.child("userType").value
-                        if(userType == "user"){
+                        if (userType == "user") {
                             emitter.onNext(true)
                         }
                     }
@@ -93,36 +93,31 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
         }
 
     override fun loginUser(user: UserLogin) = Observable.create<Boolean> { emitter ->
-        databaseAuthentication().signInWithEmailAndPassword(user.email,user.password)
+        databaseAuthentication().signInWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
                 emitter.onNext(true)
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 emitter.onNext(false)
             }
     }
 
-    override fun userData() = Observable.create<UserData> { emitter ->
+    override fun userData() = Observable.create<DataSnapshot> { emitter ->
 
         val database = liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
         database.get().addOnSuccessListener {
             if (it.exists()) {
-
-                val uid = databaseAuthentication().currentUser?.uid!!
-                val userProfileData = UserData(
-                    name = it.child(uid).child("name").value  as String,
-                    email = it.child(uid).child("email").value as String,
-                    password = it.child(uid).child("password").value as String,
-                )
-
-                emitter.onNext(userProfileData)
+                val uid = databaseAuthentication().currentUser?.uid
+                if (uid != null) {
+                    emitter.onNext(it.child(uid))
+                }
             }
         }
 
     }
 
     override fun signOutUser() {
-      databaseAuthentication().signOut()
+        databaseAuthentication().signOut()
     }
 }

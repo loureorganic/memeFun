@@ -3,14 +3,14 @@ package com.example.bookappkotlin.screens.profile.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivityProfileBinding
-import com.example.bookappkotlin.screens.profile.services.ServiceProfile
-import org.koin.android.ext.android.inject
+import com.example.bookappkotlin.screens.profile.viewmodel.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private val services by inject<ServiceProfile>()
+    private lateinit var viewModelProfile: ProfileViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +22,16 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModelProfile = ViewModelProvider(this)[ProfileViewModel::class.java]
+    }
+
     @SuppressLint("CheckResult")
     private fun userDataBinding() {
-        services.userData().subscribe {
-            response ->
+
+        viewModelProfile.dataProfileAccountLiveData.observe(this) { response ->
             binding.username.text = response.name
         }
     }
