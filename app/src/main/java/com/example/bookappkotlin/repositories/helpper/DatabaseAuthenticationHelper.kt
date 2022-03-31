@@ -80,13 +80,15 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
                     val ref = liveDatabase().getReference(
                         ApplicationConstants.FIREBASE_USERS
                     )
-                    ref.child(uid!!).setValue(hashMap)
-                        .addOnSuccessListener {
-                            emitter.onNext(true)
-                        }
-                        .addOnFailureListener {
-                            emitter.onNext(false)
-                        }
+                    if (uid != null) {
+                        ref.child(uid).setValue(hashMap)
+                            .addOnSuccessListener {
+                                emitter.onNext(true)
+                            }
+                            .addOnFailureListener {
+                                emitter.onNext(false)
+                            }
+                    }
                 }.addOnFailureListener {
                     Log.i("FIREBASE ERROR", "Error $it")
                 }
@@ -116,12 +118,11 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
                         email = it.child(uid).child("email").value as String,
                         password = it.child(uid).child("password").value as String,
                     )
-                    emitter.onNext(userProfileData)
 
+                    emitter.onNext(userProfileData)
                 }
             }
         }
-
     }
 
     override fun signOutUser() {

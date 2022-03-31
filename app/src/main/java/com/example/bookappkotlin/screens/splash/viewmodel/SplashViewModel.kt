@@ -26,7 +26,6 @@ class SplashViewModel: ViewModel(), KoinComponent, ViewModelSplash {
     override fun checkUser() {
         val result = services.checkUser()
         result.subscribe { response ->
-            Log.i("VALUE", "TS" + response)
             booleanCheckUserLiveData.postValue(response)
         }
     }

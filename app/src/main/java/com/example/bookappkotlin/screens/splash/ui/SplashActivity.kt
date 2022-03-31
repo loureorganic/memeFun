@@ -7,7 +7,6 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.bookappkotlin.R
 import com.example.bookappkotlin.databinding.ActivitySplashBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
@@ -19,7 +18,6 @@ import org.koin.android.ext.android.inject
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
-    private val splashService by inject<SplashService>()
     private lateinit var binding: ActivitySplashBinding
 
     private lateinit var viewModelSplash: SplashViewModel
@@ -33,7 +31,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
 
         viewModelSplash = ViewModelProvider(this)[SplashViewModel::class.java]
 

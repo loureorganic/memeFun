@@ -25,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
 
     private lateinit var user: UserRegister
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -94,7 +95,6 @@ class RegisterActivity : AppCompatActivity() {
                 redirectUserDashBoard(response)
             }
         }
-
     }
 
     private fun redirectUserDashBoard(accepted: Boolean) {

@@ -17,6 +17,7 @@ class PhotoAdapter(var context: Context) : RecyclerView.Adapter<PhotoAdapter.Vie
 
     private val glide by inject<ImageLoader>()
     private var dataList = emptyList<Meme>()
+
     internal fun setDataList(userImageList: List<Meme>) {
         this.dataList = userImageList
     }

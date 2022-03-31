@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
 
     @SuppressLint("CheckResult")
     override fun getAllMemes() {
-        var result = services.getAllMemes()
+        val result = services.getAllMemes()
         result.subscribe { response ->
             response?.data?.meme?.let { memeList ->
                 listMemeResponseLiveData.postValue(memeList)

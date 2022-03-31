@@ -15,7 +15,6 @@ interface ViewModelProfile{
 
 class ProfileViewModel : ViewModel(), ViewModelProfile, KoinComponent {
 
-
     private val loginAccountLiveData = MutableLiveData<UserData>()
     override val dataProfileAccountLiveData : MutableLiveData<UserData> = loginAccountLiveData
 
