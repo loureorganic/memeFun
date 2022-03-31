@@ -11,6 +11,7 @@ import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.model.UserLogin
+import com.example.bookappkotlin.screens.login.utils.LoginConstants
 import com.example.bookappkotlin.screens.login.viewmodel.LoginViewModel
 import com.example.bookappkotlin.screens.register.ui.RegisterActivity
 
@@ -64,12 +65,12 @@ class LoginActivity : AppCompatActivity() {
 
         var result = loginViewModel.dataValidation(user)
 
-        if(result == "INVALID_EMAIL"){
+        if(result == LoginConstants.INVALID_EMAIL){
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
         }
-        else if(result == "EMPTY_PASSWORD"){
+        else if(result == LoginConstants.EMPTY_PASSWORD){
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
-        }else if(result == "VALID"){
+        }else if(result == LoginConstants.VALID){
             loginAccount(user)
         }
     }

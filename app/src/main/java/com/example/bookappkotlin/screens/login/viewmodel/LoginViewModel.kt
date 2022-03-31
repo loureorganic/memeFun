@@ -24,17 +24,11 @@ class LoginViewModel : ViewModel(), ViewModelLogin, KoinComponent{
     override fun loginUser(userLogin: UserLogin) {
         val response = services.loginUser(userLogin = userLogin)
         response.subscribe{ result ->
-            if(result){
-                booleanLoginAccountLiveData.postValue(true)
-            }else {
-                booleanLoginAccountLiveData.postValue(false)
-            }
+                booleanLoginAccountLiveData.postValue(result)
         }
-
     }
 
     override fun dataValidation(user: UserLogin): String {
         return services.dataValidation(user = user)
     }
-
 }

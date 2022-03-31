@@ -1,11 +1,9 @@
 package com.example.bookappkotlin.screens.home.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookappkotlin.screens.home.model.Meme
-import com.example.bookappkotlin.screens.home.model.MemeResponse
 import com.example.bookappkotlin.screens.home.services.HomeServices
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.component.KoinComponent
@@ -15,6 +13,7 @@ interface ViewModelHome{
     val listMemeResponseLiveData : MutableLiveData<List<Meme>>
     fun getAllMemes()
     fun signOutUser()
+    fun destroyComposite()
 }
 
 class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
@@ -33,7 +32,6 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
         var result = services.getAllMemes()
         result.subscribe { response ->
             response?.data?.meme?.let { memeList ->
-                Log.i("MEME LIST", "TESTE" + memeList)
                 listMemeResponseLiveData.postValue(memeList)
             }
         }.run { composite.add(this) }
@@ -41,5 +39,9 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
 
     override fun signOutUser() {
         return services.signOutUser()
+    }
+
+    override fun destroyComposite(){
+       return composite.clear()
     }
 }

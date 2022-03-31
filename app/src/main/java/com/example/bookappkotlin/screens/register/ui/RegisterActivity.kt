@@ -12,10 +12,9 @@ import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityRegisterBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.register.model.UserRegister
-import com.example.bookappkotlin.screens.register.services.RegisterService
+import com.example.bookappkotlin.screens.register.utils.RegisterConstants
 import com.example.bookappkotlin.screens.register.viewmodel.RegisterViewModel
 import com.example.bookappkotlin.screens.register.viewmodel.ViewModelRegister
-import org.koin.android.ext.android.inject
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -58,15 +57,15 @@ class RegisterActivity : AppCompatActivity() {
 
         val result = viewModelRegister.dataValidation(user)
 
-        if (result == "NAME_EMPTY") {
+        if (result ==  RegisterConstants.NAME_EMPTY) {
             Toast.makeText(this, "Enter your name...", Toast.LENGTH_SHORT).show()
-        } else if (result == "EMAIL_INVALID") {
+        } else if (result ==  RegisterConstants.EMAIL_INVALID) {
             Toast.makeText(this, "Invalid Email Pattern...", Toast.LENGTH_SHORT).show()
-        } else if (result == "PASSWORD_EMPTY") {
+        } else if (result ==  RegisterConstants.PASSWORD_EMPTY) {
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
-        } else if (result == "CONFIRM_PASSWORD_EMPTY") {
+        } else if (result ==  RegisterConstants.CONFIRM_PASSWORD_EMPTY) {
             Toast.makeText(this, "Confirm password...", Toast.LENGTH_SHORT).show()
-        } else if (result == "PASSWORD_NOT_MATCH") {
+        } else if (result ==  RegisterConstants.PASSWORD_NOT_MATCH) {
             Toast.makeText(this, "Password doesn't match...", Toast.LENGTH_SHORT).show()
         } else {
             createUserAccount(user)

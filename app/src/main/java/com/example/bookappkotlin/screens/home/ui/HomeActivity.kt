@@ -3,7 +3,6 @@ package com.example.bookappkotlin.screens.home.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,25 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
 import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
-import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
-import com.example.bookappkotlin.repositories.helpper.DatabaseAuthenticationHelper
-import com.example.bookappkotlin.screens.home.services.HomeServices
 import com.example.bookappkotlin.screens.home.adapters.PhotoAdapter
 import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
 import com.example.bookappkotlin.screens.profile.ui.ProfileActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
-
     private lateinit var viewModelUser: UserViewModel
-
     private lateinit var viewModelHome : HomeViewModel
 
     private val recyclerView: RecyclerView by lazy {
@@ -43,21 +35,14 @@ class HomeActivity : AppCompatActivity() {
         parametersOf(applicationContext)
     }
 
-    private lateinit var binding: ActivityHomeBinding
-
-    //dependency
-    private val composite: CompositeDisposable by lazy {
-        CompositeDisposable()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
-        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-        viewModelHome = ViewModelProvider(this)[HomeViewModel::class.java]
+    override fun onStart() {
+        super.onStart()
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayoutOne, R.string.open, R.string.close)
         binding.drawerLayoutOne.addDrawerListener(toggle)
@@ -66,11 +51,14 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
         recyclerView.adapter = photoAdapter
 
-        getMyData()
+        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
+        viewModelHome = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.navigationView.bringToFront()
+        listMemeAtPhotoAdapter()
+        navigationViewListener()
+    }
 
+    private fun navigationViewListener() {
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.item_1 -> startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
@@ -86,12 +74,21 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navigationView.bringToFront()
     }
 
-    override fun onStart() {
-        super.onStart()
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun listMemeAtPhotoAdapter() {
         viewModelHome.getAllMemes()
 
         viewModelHome.listMemeResponseLiveData.observe(this){ memeList ->
@@ -101,35 +98,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun getMyData() {
-        /*service
-            .getAllMemes()
-            .subscribeOn(Schedulers.io())
-            .filter { it.data?.meme != null }
-            .doOnError { error ->
-                error.printStackTrace()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                response?.data?.meme?.let { memeList ->
-                    photoAdapter.setDataList(memeList)
-                    photoAdapter.notifyDataSetChanged()
-                }
-            }.run { composite.add(this) }*/
-
-
-    }
 
     override fun onDestroy() {
-        composite.clear()
+        viewModelHome.destroyComposite()
         super.onDestroy()
     }
 }

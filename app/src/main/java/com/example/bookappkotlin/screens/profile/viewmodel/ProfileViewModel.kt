@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookappkotlin.screens.profile.model.UserData
 import com.example.bookappkotlin.screens.profile.services.ServiceProfile
-import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

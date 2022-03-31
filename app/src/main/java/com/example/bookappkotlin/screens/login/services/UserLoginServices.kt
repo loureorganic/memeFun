@@ -3,6 +3,7 @@ package com.example.bookappkotlin.screens.login.services
 import android.util.Patterns
 import com.example.bookappkotlin.screens.login.model.UserLogin
 import com.example.bookappkotlin.screens.login.repository.LoginRepository
+import com.example.bookappkotlin.screens.login.utils.LoginConstants
 import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -18,11 +19,11 @@ class UserLoginServices : LoginService, KoinComponent {
 
     override fun dataValidation(user: UserLogin): String {
         return if (!Patterns.EMAIL_ADDRESS.matcher(user.email).matches()) {
-            "INVALID_EMAIL"
+            LoginConstants.INVALID_EMAIL
         } else if (user.password.isEmpty() && user.password.length >= 6) {
-            "EMPTY_PASSWORD"
+            LoginConstants.EMPTY_PASSWORD
         } else {
-            "VALID"
+            LoginConstants.VALID
         }
     }
 

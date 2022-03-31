@@ -3,6 +3,7 @@ package com.example.bookappkotlin.screens.register.services
 import android.util.Patterns
 import com.example.bookappkotlin.screens.register.model.UserRegister
 import com.example.bookappkotlin.screens.register.repository.RegisterRepository
+import com.example.bookappkotlin.screens.register.utils.RegisterConstants
 import io.reactivex.Observable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -18,17 +19,17 @@ class UserRegisterServices() : RegisterService, KoinComponent {
 
      override fun dataValidation(user: UserRegister): String {
          return if (user.name.isEmpty()) {
-             "NAME_EMPTY"
+             RegisterConstants.NAME_EMPTY
          } else if (!Patterns.EMAIL_ADDRESS.matcher(user.email).matches()) {
-             "EMAIL_INVALID"
+             RegisterConstants.EMAIL_INVALID
          } else if (user.password.isEmpty()) {
-             "PASSWORD_EMPTY"
+             RegisterConstants.PASSWORD_EMPTY
          } else if (user.confirmPassword.isEmpty()) {
-             "CONFIRM_PASSWORD_EMPTY"
+             RegisterConstants.CONFIRM_PASSWORD_EMPTY
          } else if (user.password != user.confirmPassword) {
-             "PASSWORD_NOT_MATCH"
+             RegisterConstants.PASSWORD_NOT_MATCH
          } else {
-             "VALID"
+             RegisterConstants.VALID
          }
     }
 

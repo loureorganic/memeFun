@@ -19,7 +19,7 @@ interface AuthenticationHelper {
     fun checkUser(): Observable<Boolean>
     fun createUserAccount(user: UserRegister): Observable<Boolean>
     fun loginUser(user: UserLogin): Observable<Boolean>
-    fun userData(): Observable<DataSnapshot>
+    fun userData(): Observable<UserData>
     fun signOutUser()
 }
 
@@ -102,7 +102,7 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
             }
     }
 
-    override fun userData() = Observable.create<DataSnapshot> { emitter ->
+    override fun userData() = Observable.create<UserData> { emitter ->
 
         val database = liveDatabase().getReference(ApplicationConstants.FIREBASE_USERS)
 
@@ -110,7 +110,14 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
             if (it.exists()) {
                 val uid = databaseAuthentication().currentUser?.uid
                 if (uid != null) {
-                    emitter.onNext(it.child(uid))
+
+                    val userProfileData = UserData(
+                        name = it.child(uid).child("name").value  as String,
+                        email = it.child(uid).child("email").value as String,
+                        password = it.child(uid).child("password").value as String,
+                    )
+                    emitter.onNext(userProfileData)
+
                 }
             }
         }
