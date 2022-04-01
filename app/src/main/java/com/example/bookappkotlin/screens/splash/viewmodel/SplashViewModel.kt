@@ -25,9 +25,10 @@ class SplashViewModel: ViewModel(), KoinComponent, ViewModelSplash {
     @SuppressLint("CheckResult")
     override fun checkUser() {
         val result = services.checkUser()
-        result.subscribe { response ->
+        result.subscribe ({ response ->
             booleanCheckUserLiveData.postValue(response)
-        }
+        },{error -> Log.e("ERROR", "SplashViewModel $error")
+        })
     }
 
 }

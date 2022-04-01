@@ -112,7 +112,6 @@ class DatabaseAuthenticationHelper : AuthenticationHelper, KoinComponent {
             if (it.exists()) {
                 val uid = databaseAuthentication().currentUser?.uid
                 if (uid != null) {
-
                     val userProfileData = UserData(
                         name = it.child(uid).child("name").value  as String,
                         email = it.child(uid).child("email").value as String,

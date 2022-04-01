@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.screens.register.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookappkotlin.screens.register.model.UserRegister
@@ -28,13 +29,10 @@ class RegisterViewModel() : ViewModel(), KoinComponent, ViewModelRegister {
     @SuppressLint("CheckResult")
     override fun createUserAccount(user: UserRegister) {
         val response = services.createUserAccount(user = user)
-        response.subscribe { response ->
-            if (response == true) {
-                booleanCreateAccountLiveData.postValue(true)
-            } else {
-                booleanCreateAccountLiveData.postValue(false)
-            }
-        }
+        response.subscribe ({ response ->
+                booleanCreateAccountLiveData.postValue(response)
+        }, {error -> Log.e("ERROR", "RegisterViewModel $error")
+        })
     }
 
 }

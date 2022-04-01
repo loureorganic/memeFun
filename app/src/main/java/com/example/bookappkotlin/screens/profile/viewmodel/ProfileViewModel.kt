@@ -1,6 +1,7 @@
 package com.example.bookappkotlin.screens.profile.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookappkotlin.screens.profile.model.UserData
@@ -23,11 +24,11 @@ class ProfileViewModel : ViewModel(), ViewModelProfile, KoinComponent {
     @SuppressLint("CheckResult")
     override fun userData() {
         val result = services.userData()
-        result.subscribe { userData ->
+
+        result.subscribe({ userData ->
             if (userData != null) {
                 dataProfileAccountLiveData.postValue(userData)
-            }
-        }
+            }},
+        { error -> Log.e("ERROR", "ProfileViewModel $error")})
     }
-
 }

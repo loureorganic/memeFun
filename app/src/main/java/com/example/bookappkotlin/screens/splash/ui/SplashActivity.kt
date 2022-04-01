@@ -39,7 +39,6 @@ class SplashActivity : AppCompatActivity() {
             viewModelSplash.checkUser()
 
             viewModelSplash.checkUserLiveData.observe(this) { result ->
-                Log.i("RESULTADO", "HELP $result")
                 redirectUserDashboard(result)
             }
         }, 2000)

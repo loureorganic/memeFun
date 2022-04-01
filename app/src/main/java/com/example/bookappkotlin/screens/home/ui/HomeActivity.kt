@@ -89,6 +89,7 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun listMemeAtPhotoAdapter() {
+
         viewModelHome.getAllMemes()
 
         viewModelHome.listMemeResponseLiveData.observe(this){ memeList ->
@@ -96,7 +97,6 @@ class HomeActivity : AppCompatActivity() {
             photoAdapter.setDataList(memeList)
             photoAdapter.notifyDataSetChanged()
         }
-
     }
 
     override fun onDestroy() {
