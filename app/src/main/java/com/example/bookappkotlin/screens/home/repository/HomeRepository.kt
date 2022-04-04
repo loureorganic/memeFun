@@ -1,7 +1,6 @@
 package com.example.bookappkotlin.screens.home.repository
 
 import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
-import com.example.bookappkotlin.repositories.helpper.DatabaseAuthenticationHelper
 import com.example.bookappkotlin.screens.home.model.MemeResponse
 import com.example.bookappkotlin.repositories.network.api.MemeApi
 import io.reactivex.Observable
@@ -17,6 +16,7 @@ interface HomeRepository {
 class UserHomeRepository : HomeRepository, KoinComponent {
 
     private val apiCall by inject<MemeApi>()
+    private val databaseAuthentication by inject<AuthenticationHelper>()
     private lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
@@ -24,7 +24,7 @@ class UserHomeRepository : HomeRepository, KoinComponent {
     }
 
     override fun signOutUser() {
-        databaseAuthenticationHelper = DatabaseAuthenticationHelper()
+        databaseAuthenticationHelper = databaseAuthentication
         databaseAuthenticationHelper.signOutUser()
     }
 }

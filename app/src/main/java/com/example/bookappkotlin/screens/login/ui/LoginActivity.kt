@@ -13,17 +13,20 @@ import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.model.UserLogin
 import com.example.bookappkotlin.screens.login.utils.LoginConstants
 import com.example.bookappkotlin.screens.login.viewmodel.LoginViewModel
+import com.example.bookappkotlin.screens.login.viewmodel.ViewModelLogin
 import com.example.bookappkotlin.screens.register.ui.RegisterActivity
+import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModelUser : UserViewModel
-
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var viewModel: ViewModelLogin
 
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var progressDialog: ProgressDialog
+
+    private val viewModelLogin by inject<ViewModelLogin>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +41,13 @@ class LoginActivity : AppCompatActivity() {
 
         viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
 
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        viewModel = viewModelLogin
+
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
-
-
 
         binding.noAccountTv.setOnClickListener{
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -63,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun validateData(user: UserLogin) {
 
-        var result = loginViewModel.dataValidation(user)
+        val result = viewModel.dataValidation(user)
 
         if(result == LoginConstants.INVALID_EMAIL){
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
@@ -76,9 +79,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginAccount(user: UserLogin) {
-        loginViewModel.loginUser(user)
+       viewModel.loginUser(user)
 
-        loginViewModel.booleanLoginAccountLiveData.observe(this){
+       viewModel.booleanLoginAccountLiveData.observe(this){
                 logged -> redirectDashBoardUser(logged = logged)
         }
     }

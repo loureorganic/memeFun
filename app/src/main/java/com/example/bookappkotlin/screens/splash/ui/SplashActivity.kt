@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivitySplashBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
-import com.example.bookappkotlin.screens.splash.services.SplashService
 import com.example.bookappkotlin.screens.splash.viewmodel.SplashViewModel
+import com.example.bookappkotlin.screens.splash.viewmodel.ViewModelSplash
 import org.koin.android.ext.android.inject
 
 
@@ -20,7 +19,10 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
 
-    private lateinit var viewModelSplash: SplashViewModel
+    private lateinit var viewModel: ViewModelSplash
+
+    private val viewModelSplash by inject<ViewModelSplash>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +34,14 @@ class SplashActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        viewModelSplash = ViewModelProvider(this)[SplashViewModel::class.java]
+        viewModel = viewModelSplash
+        viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
         Handler().postDelayed({
 
-            viewModelSplash.checkUser()
+            viewModel.checkUser()
 
-            viewModelSplash.checkUserLiveData.observe(this) { result ->
+            (viewModel as SplashViewModel).checkUserLiveData.observe(this) { result ->
                 redirectUserDashboard(result)
             }
         }, 2000)

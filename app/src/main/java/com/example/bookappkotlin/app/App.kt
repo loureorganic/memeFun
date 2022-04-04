@@ -33,7 +33,9 @@ class App : Application() {
                     photoAdapterModule,
                     firebaseAuthModule,
                     firebaseDatabaseModule,
-                    profileModule
+                    profileModule,
+                    databaseAuthenticationModule,
+                    viewModelModule
                 )
             )
         }

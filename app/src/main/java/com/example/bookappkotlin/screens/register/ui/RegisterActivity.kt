@@ -15,16 +15,20 @@ import com.example.bookappkotlin.screens.register.model.UserRegister
 import com.example.bookappkotlin.screens.register.utils.RegisterConstants
 import com.example.bookappkotlin.screens.register.viewmodel.RegisterViewModel
 import com.example.bookappkotlin.screens.register.viewmodel.ViewModelRegister
+import org.koin.android.ext.android.inject
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var viewModelUser: UserViewModel
-    private lateinit var viewModelRegister: ViewModelRegister
+    private lateinit var viewModel: ViewModelRegister
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
 
     private lateinit var user: UserRegister
+
+    private val viewModelRegister by inject<ViewModelRegister>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +44,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onStart()
 
         viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-        viewModelRegister = ViewModelProvider(this)[RegisterViewModel::class.java]
+
+        viewModel = viewModelRegister
+        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
         binding.registerBtn.setOnClickListener {
             validateData()

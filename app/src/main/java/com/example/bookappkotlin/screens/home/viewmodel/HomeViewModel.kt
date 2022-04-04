@@ -9,11 +9,10 @@ import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-interface ViewModelHome{
-    val listMemeResponseLiveData : MutableLiveData<List<Meme>>
+interface ViewModelHome {
+    val listMemeResponseLiveData: MutableLiveData<List<Meme>>
     fun getAllMemes()
     fun signOutUser()
-    fun destroyComposite()
 }
 
 class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
@@ -29,8 +28,8 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
 
     @SuppressLint("CheckResult")
     override fun getAllMemes() {
-        val result = services.getAllMemes()
-        result.subscribe { response ->
+
+        services.getAllMemes().subscribe { response ->
             response?.data?.meme?.let { memeList ->
                 listMemeResponseLiveData.postValue(memeList)
             }
@@ -41,7 +40,8 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
         return services.signOutUser()
     }
 
-    override fun destroyComposite(){
-       return composite.clear()
+    override fun onCleared() {
+        composite.clear()
+        super.onCleared()
     }
 }

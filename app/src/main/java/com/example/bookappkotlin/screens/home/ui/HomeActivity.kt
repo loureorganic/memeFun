@@ -15,6 +15,7 @@ import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
 import com.example.bookappkotlin.screens.home.adapters.PhotoAdapter
 import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
+import com.example.bookappkotlin.screens.home.viewmodel.ViewModelHome
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
 import com.example.bookappkotlin.screens.profile.ui.ProfileActivity
 import org.koin.android.ext.android.inject
@@ -25,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var viewModelUser: UserViewModel
-    private lateinit var viewModelHome : HomeViewModel
+    private lateinit var viewModel : ViewModelHome
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
@@ -34,6 +35,9 @@ class HomeActivity : AppCompatActivity() {
     private val photoAdapter by inject<PhotoAdapter> {
         parametersOf(applicationContext)
     }
+
+    private val viewModelHome by inject<ViewModelHome>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +55,10 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
         recyclerView.adapter = photoAdapter
 
+        viewModel = viewModelHome
+
         viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-        viewModelHome = ViewModelProvider(this)[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         listMemeAtPhotoAdapter()
         navigationViewListener()
@@ -93,14 +99,9 @@ class HomeActivity : AppCompatActivity() {
         viewModelHome.getAllMemes()
 
         viewModelHome.listMemeResponseLiveData.observe(this){ memeList ->
-
             photoAdapter.setDataList(memeList)
             photoAdapter.notifyDataSetChanged()
         }
     }
 
-    override fun onDestroy() {
-        viewModelHome.destroyComposite()
-        super.onDestroy()
-    }
 }

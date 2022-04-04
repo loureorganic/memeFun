@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivityProfileBinding
 import com.example.bookappkotlin.screens.profile.viewmodel.ProfileViewModel
+import com.example.bookappkotlin.screens.profile.viewmodel.ViewModelProfile
+import org.koin.android.ext.android.inject
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var viewModelProfile: ProfileViewModel
+    private lateinit var viewModel: ViewModelProfile
+    private val viewModelProfile by inject<ViewModelProfile>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +25,8 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModelProfile = ViewModelProvider(this)[ProfileViewModel::class.java]
+        viewModel = viewModelProfile
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
     }
 
     @SuppressLint("CheckResult")

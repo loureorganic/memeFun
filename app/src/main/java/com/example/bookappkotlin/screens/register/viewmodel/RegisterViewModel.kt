@@ -15,7 +15,7 @@ interface ViewModelRegister {
     fun dataValidation(user: UserRegister): String
 }
 
-class RegisterViewModel() : ViewModel(), KoinComponent, ViewModelRegister {
+class RegisterViewModel : ViewModel(), KoinComponent, ViewModelRegister {
 
     private val services by inject<RegisterService>()
     private val createAccountLiveData = MutableLiveData<Boolean>()
@@ -29,8 +29,8 @@ class RegisterViewModel() : ViewModel(), KoinComponent, ViewModelRegister {
     @SuppressLint("CheckResult")
     override fun createUserAccount(user: UserRegister) {
         val response = services.createUserAccount(user = user)
-        response.subscribe ({ response ->
-                booleanCreateAccountLiveData.postValue(response)
+        response.subscribe ({ result ->
+                booleanCreateAccountLiveData.postValue(result)
         }, {error -> Log.e("ERROR", "RegisterViewModel $error")
         })
     }

@@ -23,12 +23,8 @@ class UserHomeServices : HomeServices, KoinComponent {
             .getAllMemes()
             .filter { it.isSuccessful }
             .map { it.body() }
-            .doOnError { it.printStackTrace() }
             .subscribeOn(Schedulers.io())
             .filter { it.data?.meme != null }
-            .doOnError { error ->
-                error.printStackTrace()
-            }
             .observeOn(AndroidSchedulers.mainThread())
 
     }
