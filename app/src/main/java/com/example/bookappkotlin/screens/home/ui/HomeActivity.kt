@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var viewModelUser: UserViewModel
-    private lateinit var viewModel : ViewModelHome
+    private lateinit var viewModel: ViewModelHome
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
@@ -95,12 +95,21 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun listMemeAtPhotoAdapter() {
-
         viewModelHome.getAllMemes()
 
-        viewModelHome.listMemeResponseLiveData.observe(this){ memeList ->
-            photoAdapter.setDataList(memeList)
-            photoAdapter.notifyDataSetChanged()
+        viewModelHome.errorMemeResponseLiveData.observe(this) { resultBoolean ->
+            if (resultBoolean) {
+                binding.textView4.text =
+                    "Unfortunately, our service is out right now, try later soon!"
+            } else {
+                viewModelHome.listMemeResponseLiveData.observe(this) { memeList ->
+                    if (memeList.isNotEmpty()) {
+                        photoAdapter.setDataList(memeList)
+                        photoAdapter.notifyDataSetChanged()
+                    }
+                }
+
+            }
         }
     }
 

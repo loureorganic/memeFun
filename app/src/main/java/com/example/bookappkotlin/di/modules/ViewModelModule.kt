@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
 import com.example.bookappkotlin.screens.home.viewmodel.ViewModelHome

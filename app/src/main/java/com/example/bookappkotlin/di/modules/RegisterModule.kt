@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.example.bookappkotlin.screens.register.repository.RegisterRepository
 import com.example.bookappkotlin.screens.register.repository.UserRegisterRepository

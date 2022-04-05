@@ -1,5 +1,6 @@
 package com.example.bookappkotlin.screens.home.repository
 
+import android.util.Log
 import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
 import com.example.bookappkotlin.screens.home.model.MemeResponse
 import com.example.bookappkotlin.repositories.network.api.MemeApi
@@ -20,6 +21,8 @@ class UserHomeRepository : HomeRepository, KoinComponent {
     private lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
+
+
         return apiCall.getData()
     }
 

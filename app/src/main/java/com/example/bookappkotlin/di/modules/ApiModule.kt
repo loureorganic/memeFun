@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.example.bookappkotlin.repositories.helpper.RetrofitHelper
 import com.example.bookappkotlin.repositories.network.api.MemeApi

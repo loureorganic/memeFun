@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
 import com.example.bookappkotlin.repositories.helpper.DatabaseAuthenticationHelper

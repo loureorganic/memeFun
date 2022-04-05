@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.example.bookappkotlin.screens.login.repository.LoginRepository
 import com.example.bookappkotlin.screens.login.repository.UserLoginRepository

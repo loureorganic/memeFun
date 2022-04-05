@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.di
+package com.example.bookappkotlin.di.modules
 
 import com.google.firebase.database.FirebaseDatabase
 import org.koin.dsl.module

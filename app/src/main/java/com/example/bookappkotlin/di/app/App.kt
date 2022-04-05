@@ -1,7 +1,7 @@
-package com.example.bookappkotlin.app
+package com.example.bookappkotlin.di.app
 
 import android.app.Application
-import com.example.bookappkotlin.di.*
+import com.example.bookappkotlin.di.modules.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
