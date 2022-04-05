@@ -10,6 +10,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 interface ViewModelProfile{
+    val errordataProfileAccount : MutableLiveData<Boolean>
     val dataProfileAccountLiveData : MutableLiveData<UserData>
     fun userData()
 }
@@ -18,6 +19,9 @@ class ProfileViewModel : ViewModel(), ViewModelProfile, KoinComponent {
 
     private val loginAccountLiveData = MutableLiveData<UserData>()
     override val dataProfileAccountLiveData : MutableLiveData<UserData> = loginAccountLiveData
+
+    private val errorDataProfile = MutableLiveData<Boolean>()
+    override  val errordataProfileAccount : MutableLiveData<Boolean> = errorDataProfile
 
     private val services by inject<ServiceProfile>()
 
@@ -28,7 +32,11 @@ class ProfileViewModel : ViewModel(), ViewModelProfile, KoinComponent {
         result.subscribe({ userData ->
             if (userData != null) {
                 dataProfileAccountLiveData.postValue(userData)
+                errorDataProfile.postValue(false)
             }},
-        { error -> Log.e("ERROR", "ProfileViewModel $error")})
+        { error ->
+            errorDataProfile.postValue(true)
+            Log.e("ERROR", "ProfileViewModel $error")
+        })
     }
 }
