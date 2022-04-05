@@ -2,6 +2,7 @@ package com.example.bookappkotlin.screens.profile.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivityProfileBinding
@@ -19,19 +20,23 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        userDataBinding()
     }
 
     override fun onStart() {
         super.onStart()
         viewModel = viewModelProfile
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        userDataBinding()
     }
 
     @SuppressLint("CheckResult")
     private fun userDataBinding() {
-        viewModelProfile.dataProfileAccountLiveData.observe(this) { response ->
+        viewModel.userData()
+
+        Log.i("HERE", "AQUI")
+        viewModel.dataProfileAccountLiveData.observe(this) { response ->
+            Log.i("HERE", "AQUI" + response)
             binding.username.text = response.name
         }
     }

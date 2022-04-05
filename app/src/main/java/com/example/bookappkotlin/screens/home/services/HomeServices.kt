@@ -20,25 +20,14 @@ class UserHomeServices : HomeServices, KoinComponent {
 
     override fun getAllMemes(): Observable<MemeResponse?> {
 
-        Log.i("TEST", "O QUE VEM DE REPOSITORY" + repository.getAllMemes())
-
-       val value =  repository
+        return repository
             .getAllMemes()
             .filter { it.isSuccessful }
             .map { it.body() }
             .subscribeOn(Schedulers.io())
             .filter { it.data?.meme != null }
             .observeOn(AndroidSchedulers.mainThread())
-           .doOnError { throwable -> "ERROR $throwable"  }
-                return value
-
-        /*return repository
-            .getAllMemes()
-            .filter { it.isSuccessful }
-            .map { it.body() }
-            .subscribeOn(Schedulers.io())
-            .filter { it.data?.meme != null }
-            .observeOn(AndroidSchedulers.mainThread())*/
+            .doOnError { throwable -> "ERROR $throwable" }
     }
 
     override fun signOutUser() {
