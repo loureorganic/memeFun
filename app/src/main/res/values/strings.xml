@@ -10,4 +10,11 @@
     <string name="register">Register</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="meme_fun_logo">MemeFun Logo</string>
+    <string name="text_sign_in">Text sign in</string>
+    <string name="sign_in">Sign in</string>
+    <string name="insert_your_email">Insert your email</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
 </resources>

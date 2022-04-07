@@ -114,9 +114,9 @@
             android:layout_below="@+id/forgotTv"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-black"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/main_blue"
+            android:fontFamily="sans-serif-black"
             android:text="Login"
             android:textColor="@color/white" />
     </RelativeLayout>
