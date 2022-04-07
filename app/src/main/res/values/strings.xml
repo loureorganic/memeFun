@@ -5,7 +5,7 @@
     <string name="type_your_name_here">Insert your full name</string>
     <string name="type_your_email_here">Insert an email valid</string>
     <string name="type_your_password_here">Insert a password</string>
-    <string name="type_your_confirm_password">Confirm your password</string>
+    <string name="type_your_confirm_password">confirm your password</string>
     <string name="logo_of_memefun">Logo of MemeFun</string>
     <string name="register">Register</string>
     <string name="open">Open</string>
@@ -16,5 +16,8 @@
     <string name="insert_your_email">Insert your email</string>
     <string name="email">email</string>
     <string name="password">password</string>
+    <string name="confirm_password">confirm password</string>
     <string name="login">Login</string>
+    <string name="full_name">full name</string>
+    <string name="sign_up">Sign up</string>
 </resources>
