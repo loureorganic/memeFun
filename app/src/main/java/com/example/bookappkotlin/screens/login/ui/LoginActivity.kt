@@ -19,7 +19,7 @@ import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var viewModelUser : UserViewModel
+    private lateinit var viewModelUser: UserViewModel
     private lateinit var viewModel: ViewModelLogin
 
     private lateinit var binding: ActivityLoginBinding
@@ -49,11 +49,11 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
 
-        binding.noAccountTv.setOnClickListener{
+        binding.noAccountTv.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        binding.loginBtn.setOnClickListener{
+        binding.loginBtn.setOnClickListener {
             val user = UserLogin(
                 email = binding.emailEt.text.toString().trim(),
                 password = binding.passwordEt.text.toString().trim()
@@ -68,29 +68,37 @@ class LoginActivity : AppCompatActivity() {
 
         val result = viewModel.dataValidation(user)
 
-        if(result == LoginConstants.INVALID_EMAIL){
+        if (result == LoginConstants.INVALID_EMAIL) {
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
-        }
-        else if(result == LoginConstants.EMPTY_PASSWORD){
+        } else if (result == LoginConstants.EMPTY_PASSWORD) {
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
-        }else if(result == LoginConstants.VALID){
+        } else if (result == LoginConstants.VALID) {
             loginAccount(user)
         }
     }
 
     private fun loginAccount(user: UserLogin) {
-       viewModel.loginUser(user)
-
-       viewModel.booleanLoginAccountLiveData.observe(this){
-                logged -> redirectDashBoardUser(logged = logged)
+        viewModel.loginUser(user)
+        viewModel.errorLoginAccountLiveData.observe(this) { result ->
+            if (result) {
+                Toast.makeText(
+                    this,
+                    "Error on trying to log in, try later soon!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                viewModel.booleanLoginAccountLiveData.observe(this) { logged ->
+                    redirectDashBoardUser(logged = logged)
+                }
+            }
         }
     }
 
     private fun redirectDashBoardUser(logged: Boolean) {
-        if(logged) {
+        if (logged) {
             startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
             finish()
-        }else{
+        } else {
             Toast.makeText(this, "Email or password are invalid", Toast.LENGTH_SHORT).show()
         }
     }

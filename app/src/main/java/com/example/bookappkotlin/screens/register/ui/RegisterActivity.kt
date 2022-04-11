@@ -29,7 +29,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private val viewModelRegister by inject<ViewModelRegister>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -64,15 +63,15 @@ class RegisterActivity : AppCompatActivity() {
 
         val result = viewModelRegister.dataValidation(user)
 
-        if (result ==  RegisterConstants.NAME_EMPTY) {
+        if (result == RegisterConstants.NAME_EMPTY) {
             Toast.makeText(this, "Enter your name...", Toast.LENGTH_SHORT).show()
-        } else if (result ==  RegisterConstants.EMAIL_INVALID) {
+        } else if (result == RegisterConstants.EMAIL_INVALID) {
             Toast.makeText(this, "Invalid Email Pattern...", Toast.LENGTH_SHORT).show()
-        } else if (result ==  RegisterConstants.PASSWORD_EMPTY) {
+        } else if (result == RegisterConstants.PASSWORD_EMPTY) {
             Toast.makeText(this, "Enter password...", Toast.LENGTH_SHORT).show()
-        } else if (result ==  RegisterConstants.CONFIRM_PASSWORD_EMPTY) {
+        } else if (result == RegisterConstants.CONFIRM_PASSWORD_EMPTY) {
             Toast.makeText(this, "Confirm password...", Toast.LENGTH_SHORT).show()
-        } else if (result ==  RegisterConstants.PASSWORD_NOT_MATCH) {
+        } else if (result == RegisterConstants.PASSWORD_NOT_MATCH) {
             Toast.makeText(this, "Password doesn't match...", Toast.LENGTH_SHORT).show()
         } else {
             createUserAccount(user)
@@ -83,24 +82,35 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setMessage("Creating Account...")
         progressDialog.show()
 
-        viewModelRegister.createUserAccount(user)
+        viewModel.createUserAccount(user)
 
-        viewModelRegister.booleanCreateAccountLiveData.observe(this) { response ->
-            if (response) {
-                redirectUserDashBoard(response)
-                val userData = UserData(
-                    id = 0,
-                    name = user.name,
-                    email = user.email,
-                    password = user.password,
-                    isLogged = true
-                )
-                viewModelUser.addUser(userData)
-
+        viewModel.errorCreateAccountLiveData.observe(this) { error ->
+            if (error) {
+                Toast.makeText(
+                    this,
+                    "Error on trying to create your account, try later soon!",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                redirectUserDashBoard(response)
+                viewModel.booleanCreateAccountLiveData.observe(this) { response ->
+                    if (response) {
+                        redirectUserDashBoard(response)
+                        val userData = UserData(
+                            id = 0,
+                            name = user.name,
+                            email = user.email,
+                            password = user.password,
+                            isLogged = true
+                        )
+                        viewModelUser.addUser(userData)
+
+                    } else {
+                        redirectUserDashBoard(response)
+                    }
+                }
             }
         }
+
     }
 
     private fun redirectUserDashBoard(accepted: Boolean) {

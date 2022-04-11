@@ -27,6 +27,7 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
 
     private val memeResponseLiveData = MutableLiveData<List<Meme>>()
     override val listMemeResponseLiveData: MutableLiveData<List<Meme>> = memeResponseLiveData
+
     private val errorMemeResponse = MutableLiveData<Boolean>()
     override val errorMemeResponseLiveData: MutableLiveData<Boolean> = errorMemeResponse
 

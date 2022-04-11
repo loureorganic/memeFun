@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivitySplashBinding
@@ -41,9 +42,20 @@ class SplashActivity : AppCompatActivity() {
 
             viewModel.checkUser()
 
-            (viewModel as SplashViewModel).checkUserLiveData.observe(this) { result ->
-                redirectUserDashboard(result)
+            viewModel.errorCheckUserLiveData.observe(this) { error ->
+                if (error) {
+                    Toast.makeText(
+                        this,
+                        "Error on trying to checkUser, try later soon!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    (viewModel as SplashViewModel).booleanCheckUserLiveData.observe(this) { result ->
+                        redirectUserDashboard(result)
+                    }
+                }
             }
+
         }, 2000)
 
     }

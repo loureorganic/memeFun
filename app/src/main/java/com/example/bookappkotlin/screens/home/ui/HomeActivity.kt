@@ -93,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun listMemeAtPhotoAdapter() {
         viewModelHome.getAllMemes()
 
@@ -106,6 +106,9 @@ class HomeActivity : AppCompatActivity() {
                     if (memeList.isNotEmpty()) {
                         photoAdapter.setDataList(memeList)
                         photoAdapter.notifyDataSetChanged()
+                    } else {
+                        binding.textView4.text =
+                            "Unfortunately, our list of memes are empty right now, try later soon!"
                     }
                 }
 

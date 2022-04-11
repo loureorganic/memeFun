@@ -30,13 +30,13 @@ class ProfileActivity : AppCompatActivity() {
         userDataBinding()
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     private fun userDataBinding() {
         viewModel.userData()
-        viewModel.errordataProfileAccount.observe(this){ error ->
-            if(error){
+        viewModel.errorDataProfileAccount.observe(this) { error ->
+            if (error) {
                 binding.username.text = "User no found"
-            }else{
+            } else {
                 viewModel.dataProfileAccountLiveData.observe(this) { response ->
                     binding.username.text = response.name
                 }
