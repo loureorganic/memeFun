@@ -7,14 +7,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
-import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityHomeBinding
+import com.example.bookappkotlin.repositories.database.ViewModelUser
 import com.example.bookappkotlin.screens.home.adapters.PhotoAdapter
-import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
 import com.example.bookappkotlin.screens.home.viewmodel.ViewModelHome
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
 import com.example.bookappkotlin.screens.profile.ui.ProfileActivity
@@ -25,8 +23,6 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var viewModelUser: UserViewModel
-    private lateinit var viewModel: ViewModelHome
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
@@ -36,7 +32,13 @@ class HomeActivity : AppCompatActivity() {
         parametersOf(applicationContext)
     }
 
-    private val viewModelHome by inject<ViewModelHome>()
+    private val viewModelHome by inject<ViewModelHome>() {
+        parametersOf(this)
+    }
+
+    private val viewModelUser by inject<ViewModelUser>() {
+        parametersOf(this)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,11 +56,6 @@ class HomeActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
         recyclerView.adapter = photoAdapter
-
-        viewModel = viewModelHome
-
-        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         listMemeAtPhotoAdapter()
         navigationViewListener()
@@ -80,11 +77,9 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navigationView.bringToFront()
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
@@ -111,9 +106,7 @@ class HomeActivity : AppCompatActivity() {
                             "Unfortunately, our list of memes are empty right now, try later soon!"
                     }
                 }
-
             }
         }
     }
-
 }

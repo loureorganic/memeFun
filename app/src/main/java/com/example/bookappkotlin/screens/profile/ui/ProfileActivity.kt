@@ -2,19 +2,18 @@ package com.example.bookappkotlin.screens.profile.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivityProfileBinding
-import com.example.bookappkotlin.screens.profile.viewmodel.ProfileViewModel
 import com.example.bookappkotlin.screens.profile.viewmodel.ViewModelProfile
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var viewModel: ViewModelProfile
-    private val viewModelProfile by inject<ViewModelProfile>()
+    private val viewModel by inject<ViewModelProfile>(){
+        parametersOf(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +23,6 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel = viewModelProfile
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-
         userDataBinding()
     }
 

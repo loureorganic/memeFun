@@ -6,27 +6,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityLoginBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.model.UserLogin
 import com.example.bookappkotlin.screens.login.utils.LoginConstants
-import com.example.bookappkotlin.screens.login.viewmodel.LoginViewModel
 import com.example.bookappkotlin.screens.login.viewmodel.ViewModelLogin
 import com.example.bookappkotlin.screens.register.ui.RegisterActivity
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var viewModelUser: UserViewModel
-    private lateinit var viewModel: ViewModelLogin
 
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var progressDialog: ProgressDialog
 
-    private val viewModelLogin by inject<ViewModelLogin>()
+    private val viewModel by inject<ViewModelLogin>() {
+        parametersOf(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-
-        viewModel = viewModelLogin
-
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
@@ -60,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
             )
             validateData(user = user)
         }
-
     }
 
     @SuppressLint("CheckResult")

@@ -1,5 +1,8 @@
 package com.example.bookappkotlin.di.modules
 
+import androidx.lifecycle.ViewModelProvider
+import com.example.bookappkotlin.repositories.database.UserViewModel
+import com.example.bookappkotlin.repositories.database.ViewModelUser
 import com.example.bookappkotlin.screens.home.viewmodel.HomeViewModel
 import com.example.bookappkotlin.screens.home.viewmodel.ViewModelHome
 import com.example.bookappkotlin.screens.login.viewmodel.LoginViewModel
@@ -13,23 +16,42 @@ import com.example.bookappkotlin.screens.splash.viewmodel.ViewModelSplash
 import org.koin.dsl.module
 
 val viewModelModule = module{
+
     single<ViewModelProfile>{
-        ProfileViewModel()
+        lateinit var profileViewModel: ViewModelProfile
+        profileViewModel = ViewModelProvider(get())[ProfileViewModel::class.java]
+        profileViewModel
     }
 
     single<ViewModelLogin>{
-        LoginViewModel()
+        lateinit var loginViewModel: ViewModelLogin
+        loginViewModel = ViewModelProvider(get())[LoginViewModel::class.java]
+        loginViewModel
     }
 
     single<ViewModelHome>{
-        HomeViewModel()
+        lateinit var homeViewModel: ViewModelHome
+        homeViewModel = ViewModelProvider(get())[HomeViewModel::class.java]
+        homeViewModel
     }
 
     single<ViewModelRegister>{
-        RegisterViewModel()
+        lateinit var registerViewModel: ViewModelRegister
+        registerViewModel = ViewModelProvider(get())[RegisterViewModel::class.java]
+        registerViewModel
     }
 
     single<ViewModelSplash>{
-        SplashViewModel()
+        lateinit var splashViewModel: ViewModelSplash
+        splashViewModel = ViewModelProvider(get())[SplashViewModel::class.java]
+        splashViewModel
     }
+
+    single<ViewModelUser>{
+        lateinit var userViewModel: ViewModelUser
+        userViewModel = ViewModelProvider(get())[UserViewModel::class.java]
+        userViewModel
+    }
+
+
 }

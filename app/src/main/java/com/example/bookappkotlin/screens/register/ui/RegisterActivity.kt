@@ -6,20 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.repositories.database.UserData
-import com.example.bookappkotlin.repositories.database.UserViewModel
 import com.example.bookappkotlin.databinding.ActivityRegisterBinding
+import com.example.bookappkotlin.repositories.database.ViewModelUser
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.register.model.UserRegister
 import com.example.bookappkotlin.screens.register.utils.RegisterConstants
-import com.example.bookappkotlin.screens.register.viewmodel.RegisterViewModel
 import com.example.bookappkotlin.screens.register.viewmodel.ViewModelRegister
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var viewModelUser: UserViewModel
     private lateinit var viewModel: ViewModelRegister
 
     private lateinit var binding: ActivityRegisterBinding
@@ -27,7 +25,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var user: UserRegister
 
-    private val viewModelRegister by inject<ViewModelRegister>()
+    private val viewModelRegister by inject<ViewModelRegister>() {
+        parametersOf(this)
+    }
+
+    private val viewModelUser by inject<ViewModelUser>() {
+        parametersOf(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +45,6 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
-
-        viewModel = viewModelRegister
-        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
         binding.registerBtn.setOnClickListener {
             validateData()

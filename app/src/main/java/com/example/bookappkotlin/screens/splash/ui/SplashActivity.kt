@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.bookappkotlin.databinding.ActivitySplashBinding
 import com.example.bookappkotlin.screens.home.ui.HomeActivity
 import com.example.bookappkotlin.screens.login.ui.LoginActivity
 import com.example.bookappkotlin.screens.splash.viewmodel.SplashViewModel
 import com.example.bookappkotlin.screens.splash.viewmodel.ViewModelSplash
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
 @SuppressLint("CustomSplashScreen")
@@ -20,29 +20,24 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
 
-    private lateinit var viewModel: ViewModelSplash
-
-    private val viewModelSplash by inject<ViewModelSplash>()
-
+    private val viewModelSplash by inject<ViewModelSplash>() {
+        parametersOf(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewModel = viewModelSplash
-        viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
-
         Handler().postDelayed({
 
-            viewModel.checkUser()
+            viewModelSplash.checkUser()
 
-            viewModel.errorCheckUserLiveData.observe(this) { error ->
+            viewModelSplash.errorCheckUserLiveData.observe(this) { error ->
                 if (error) {
                     Toast.makeText(
                         this,
@@ -50,7 +45,7 @@ class SplashActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    (viewModel as SplashViewModel).booleanCheckUserLiveData.observe(this) { result ->
+                    (viewModelSplash as SplashViewModel).booleanCheckUserLiveData.observe(this) { result ->
                         redirectUserDashboard(result)
                     }
                 }
