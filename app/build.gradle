@@ -38,6 +38,8 @@ android {
     buildFeatures{
         viewBinding true
     }
+
+
 }
 
 dependencies {
@@ -56,8 +58,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     testImplementation 'com.google.truth:truth:1.0.1'
     androidTestImplementation 'com.google.truth:truth:1.0.1'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation 'junit:junit:4.13.2'
 
-
+    // UnitTest frameworks
+    implementation "org.mockito:mockito-core:4.0.0"
+    implementation "org.robolectric:robolectric:4.2.1"
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
@@ -70,9 +76,11 @@ dependencies {
     //rx android
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     // Koin Core featuresApiModule.kt
-    implementation "io.insert-koin:koin-core:3.1.5"
+    implementation "io.insert-koin:koin-core:3.1.6"
     // Koin Test features
-    testImplementation "io.insert-koin:koin-test:3.1.5"
+    testImplementation "io.insert-koin:koin-test:3.1.6"
+
+    testImplementation "io.insert-koin:koin-test-junit4:3.1.6"
 
     // Koin main features for Android
     implementation "io.insert-koin:koin-android:3.1.5"
@@ -108,4 +116,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+
 }

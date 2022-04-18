@@ -18,11 +18,11 @@ class UserLoginServices : LoginService, KoinComponent {
     private val repository by inject<LoginRepository>()
 
     override fun dataValidation(user: UserLogin): String {
-        return if (!Patterns.EMAIL_ADDRESS.matcher(user.email).matches()) {
-            LoginConstants.INVALID_EMAIL
-        } else if (user.password.isEmpty() && user.password.length >= 6) {
+        return  if (user.password.isEmpty() && user.password.length >= 6) {
             LoginConstants.EMPTY_PASSWORD
-        } else {
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(user.email).matches()) {
+            LoginConstants.INVALID_EMAIL
+        }  else {
             LoginConstants.VALID
         }
     }

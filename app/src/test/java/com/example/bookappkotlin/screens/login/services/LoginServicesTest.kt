@@ -1,14 +1,16 @@
-package com.example.bookappkotlin.screens.login.viewmodel
+package com.example.bookappkotlin.screens.login.services
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.bookappkotlin.screens.login.model.UserLogin
-import com.example.bookappkotlin.screens.login.services.LoginService
-import com.example.bookappkotlin.screens.login.services.UserLoginServices
+import com.example.bookappkotlin.screens.login.utils.LoginConstants
+import com.example.bookappkotlin.screens.login.viewmodel.LoginViewModel
+import com.example.bookappkotlin.screens.login.viewmodel.ViewModelLogin
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
@@ -16,8 +18,7 @@ import org.koin.test.KoinTest
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class LoginViewModelTest : KoinTest {
-
+class LoginServicesTest : KoinTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -26,10 +27,6 @@ class LoginViewModelTest : KoinTest {
     fun before() {
         startKoin {
             modules(module {
-             single<ViewModelLogin>{
-                    LoginViewModel()
-             }
-
                 single<LoginService>{
                     UserLoginServices()
                 }
@@ -42,19 +39,20 @@ class LoginViewModelTest : KoinTest {
         stopKoin()
     }
 
+    private lateinit var services : LoginService
+
+
     @Test
-    fun testViewModel(){
+    fun testServices(){
 
         val user = UserLogin(
             email = "kaiqueguimaraes@gmail.com",
             password = "123456"
         )
 
-        val viewModel1 = ViewModelLoginTest()
+        services = UserLoginServices()
 
-        viewModel1.loginUser(user)
-        viewModel1.booleanLoginAccountLiveData.observeForever{ it ->
-            assert(it === true)
-        }
+        val response = services.dataValidation(user)
+        assert(response === LoginConstants.VALID)
     }
 }
