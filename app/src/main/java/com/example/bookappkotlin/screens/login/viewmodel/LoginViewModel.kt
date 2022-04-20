@@ -16,9 +16,9 @@ interface ViewModelLogin {
     fun dataValidation(user: UserLogin): String
 }
 
-class LoginViewModel : ViewModel(), ViewModelLogin, KoinComponent {
+class LoginViewModel ( private val services : LoginService): ViewModel(), ViewModelLogin, KoinComponent {
 
-    private val services by inject<LoginService>()
+    //private val services by inject<LoginService>()
 
     private val loginAccountLiveData = MutableLiveData<Boolean>()
     override val booleanLoginAccountLiveData: MutableLiveData<Boolean> = loginAccountLiveData

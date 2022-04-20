@@ -13,9 +13,9 @@ interface LoginService {
     fun dataValidation (user: UserLogin): String
 }
 
-class UserLoginServices : LoginService, KoinComponent {
+class UserLoginServices (private val repository : LoginRepository) : LoginService, KoinComponent {
 
-    private val repository by inject<LoginRepository>()
+    //private val repository by inject<LoginRepository>()
 
     override fun dataValidation(user: UserLogin): String {
         return  if (user.password.isEmpty() && user.password.length >= 6) {
