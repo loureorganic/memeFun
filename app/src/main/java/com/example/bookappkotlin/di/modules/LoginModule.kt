@@ -13,6 +13,6 @@ val loginModule = module {
     }
 
     single<LoginService>{
-        UserLoginServices(get())
+        UserLoginServices()
     }
 }

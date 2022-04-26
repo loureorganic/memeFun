@@ -1,8 +1,7 @@
 package com.example.bookappkotlin.screens.home.repository
 
-import android.util.Log
 import com.example.bookappkotlin.repositories.helpper.AuthenticationHelper
-import com.example.bookappkotlin.screens.home.model.MemeResponse
+import com.example.bookappkotlin.repositories.network.api.model.MemeResponse
 import com.example.bookappkotlin.repositories.network.api.MemeApi
 import io.reactivex.Observable
 import org.koin.core.component.KoinComponent

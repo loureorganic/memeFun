@@ -16,9 +16,9 @@ interface ViewModelLogin {
     fun dataValidation(user: UserLogin): String
 }
 
-class LoginViewModel ( private val services : LoginService): ViewModel(), ViewModelLogin, KoinComponent {
+class LoginViewModel : ViewModel(), ViewModelLogin, KoinComponent {
 
-    //private val services by inject<LoginService>()
+    private val services by inject<LoginService>()
 
     private val loginAccountLiveData = MutableLiveData<Boolean>()
     override val booleanLoginAccountLiveData: MutableLiveData<Boolean> = loginAccountLiveData
@@ -28,14 +28,14 @@ class LoginViewModel ( private val services : LoginService): ViewModel(), ViewMo
 
     @SuppressLint("CheckResult")
     override fun loginUser(userLogin: UserLogin) {
-        val response = services.loginUser(userLogin = userLogin)
-        response.subscribe({ result ->
-            errLoginAccountLiveData.postValue(false)
-            booleanLoginAccountLiveData.postValue(result)
-        }, { error ->
-            errorLoginAccountLiveData.postValue(true)
-            Log.e("ERROR", "LoginViewModel $error")
-        })
+        services.loginUser(userLogin = userLogin)
+            .subscribe({ result ->
+                errLoginAccountLiveData.postValue(false)
+                booleanLoginAccountLiveData.postValue(result)
+            }, { error ->
+                errorLoginAccountLiveData.postValue(true)
+                Log.e("ERROR", "LoginViewModel $error")
+            })
     }
 
     override fun dataValidation(user: UserLogin): String {

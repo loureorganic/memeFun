@@ -1,6 +1,6 @@
 package com.example.bookappkotlin.repositories.network.client
 
-import com.example.bookappkotlin.screens.home.model.MemeResponse
+import com.example.bookappkotlin.repositories.network.api.model.MemeResponse
 import com.example.bookappkotlin.repositories.network.api.MemeApi
 import io.reactivex.Observable
 import retrofit2.Response

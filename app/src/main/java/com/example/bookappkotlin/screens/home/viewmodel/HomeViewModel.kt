@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bookappkotlin.screens.home.model.Meme
+import com.example.bookappkotlin.repositories.network.api.model.Meme
 import com.example.bookappkotlin.screens.home.services.HomeServices
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.component.KoinComponent

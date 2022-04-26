@@ -1,7 +1,6 @@
 package com.example.bookappkotlin.screens.home.services
 
-import android.util.Log
-import com.example.bookappkotlin.screens.home.model.MemeResponse
+import com.example.bookappkotlin.repositories.network.api.model.MemeResponse
 import com.example.bookappkotlin.screens.home.repository.HomeRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,4 +1,4 @@
-package com.example.bookappkotlin.screens.home.model
+package com.example.bookappkotlin.repositories.network.api.model
 
 import com.google.gson.annotations.SerializedName
 

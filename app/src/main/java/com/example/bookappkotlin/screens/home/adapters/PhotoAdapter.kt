@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookappkotlin.R
-import com.example.bookappkotlin.screens.home.model.Meme
+import com.example.bookappkotlin.repositories.network.api.model.Meme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
