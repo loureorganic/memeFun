@@ -12,12 +12,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 class HomeViewModelTest : KoinTest {
@@ -115,13 +114,16 @@ class HomeViewModelTest : KoinTest {
         viewModel.getAllMemes()
 
         viewModel.listMemeResponseLiveData.observeForever{ result ->
-            assert(result === expectedListOfMemes)
+            assert(result == expectedListOfMemes)
         }
     }
 
     @Test
     fun `HomeViewModel - should call services correctly during signOut`(){
 
+        viewModel.signOutUser()
+
+        verify(mockedHomeServices, times(1)).signOutUser()
     }
 
     @After
