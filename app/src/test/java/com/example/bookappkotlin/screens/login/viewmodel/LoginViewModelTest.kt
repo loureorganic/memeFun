@@ -14,9 +14,7 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.times
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 class LoginViewModelTest : KoinTest {
@@ -48,11 +46,6 @@ class LoginViewModelTest : KoinTest {
         }
     }
 
-    @After
-    fun afterIt() {
-        stopKoin()
-    }
-
     @Test
     fun `LoginViewModel - should return valid during dataValidation`() {
 
@@ -63,7 +56,7 @@ class LoginViewModelTest : KoinTest {
 
         viewModel.dataValidation(user)
 
-        Mockito.verify(mockLoginServices, times(1)).dataValidation(user)
+        verify(mockLoginServices, times(1)).dataValidation(user)
     }
 
     @Test
@@ -84,5 +77,10 @@ class LoginViewModelTest : KoinTest {
         viewModel.errorLoginAccountLiveData.observeForever {  result ->
             assert(result == false)
         }
+    }
+
+    @After
+    fun afterIt() {
+        stopKoin()
     }
 }

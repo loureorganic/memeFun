@@ -54,22 +54,22 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    testImplementation 'com.google.truth:truth:1.0.1'
-    androidTestImplementation 'com.google.truth:truth:1.0.1'
     testImplementation 'android.arch.core:core-testing:1.1.1'
-    testImplementation 'junit:junit:4.13.2'
+
+    //Firebase
+
 
     //Mockk
-    testImplementation "io.mockk:mockk:1.12.3"
+    //testImplementation "io.mockk:mockk:1.12.3"
 
     // UnitTest frameworks
-    implementation "org.mockito:mockito-core:4.0.0"
-    implementation "org.robolectric:robolectric:4.2.1"
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation "org.robolectric:robolectric:4.2.1"
+
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+
     //gson
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
@@ -78,6 +78,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     //rx android
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+
     // Koin Core featuresApiModule.kt
     implementation "io.insert-koin:koin-core:3.1.6"
     // Koin Test features
@@ -88,36 +89,41 @@ dependencies {
 
     // Java Compatibility
     implementation "io.insert-koin:koin-android-compat:3.1.5"
+
     // Jetpack WorkManager
     implementation "io.insert-koin:koin-androidx-workmanager:3.1.5"
+
     // Navigation Graph
     implementation "io.insert-koin:koin-androidx-navigation:3.1.5"
+
     // Jetpack Compose
     implementation "io.insert-koin:koin-androidx-compose:3.1.5"
+
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
     //Material Google
     implementation 'com.google.android.material:material:1.5.0'
 
     // Navigation Component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
     // Room components
     implementation "androidx.room:room-runtime:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
     androidTestImplementation "androidx.room:room-testing:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
 
-    // Room
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
 }
