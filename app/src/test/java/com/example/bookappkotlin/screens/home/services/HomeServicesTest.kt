@@ -1,11 +1,7 @@
 package com.example.bookappkotlin.screens.home.services
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.bookappkotlin.repositories.network.api.model.Meme
-import com.example.bookappkotlin.repositories.network.api.model.MemeResponse
-import com.example.bookappkotlin.repositories.network.api.model.MemeValue
 import com.example.bookappkotlin.screens.home.repository.HomeRepository
-import io.reactivex.Observable
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -16,9 +12,9 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import retrofit2.Response
 
 class HomeServicesTest : KoinTest {
 

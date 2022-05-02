@@ -20,8 +20,6 @@ class UserHomeRepository : HomeRepository, KoinComponent {
     private lateinit var databaseAuthenticationHelper: AuthenticationHelper
 
     override fun getAllMemes(): Observable<Response<MemeResponse>> {
-
-
         return apiCall.getData()
     }
 

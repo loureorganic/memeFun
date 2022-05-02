@@ -121,6 +121,20 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
+    // Espresso
+    def androidx_test_espresso = "3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    implementation "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
+
+    // androidx.test
+    def androidx_test = "1.1.3"
+    androidTestImplementation "androidx.test:runner:$androidx_test"
+    androidTestImplementation "androidx.test:core:$androidx_test"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test"
+
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
