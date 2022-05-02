@@ -41,7 +41,6 @@ class HomeViewModel : ViewModel(), KoinComponent, ViewModelHome {
             }
         }, { e ->
                 errorMemeResponseLiveData.postValue(true)
-                Log.i("ERROR", "getMemes ${e.message}")
             })
             .run { composite.add(this) }
     }
