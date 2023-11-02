@@ -11,7 +11,7 @@ import org.koin.core.parameter.parametersOf
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private val viewModel by inject<ViewModelProfile>(){
+    private val viewModel by inject<ViewModelProfile>() {
         parametersOf(this)
     }
 
@@ -30,13 +30,10 @@ class ProfileActivity : AppCompatActivity() {
     private fun userDataBinding() {
         viewModel.userData()
         viewModel.errorDataProfileAccount.observe(this) { error ->
-            if (error) {
-                binding.username.text = "User no found"
-            } else {
-                viewModel.dataProfileAccountLiveData.observe(this) { response ->
-                    binding.username.text = response.name
-                }
+            viewModel.dataProfileAccountLiveData.observe(this) { response ->
+                binding.username.text = response.name
             }
+
         }
     }
 }
